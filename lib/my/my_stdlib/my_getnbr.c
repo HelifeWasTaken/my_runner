@@ -1,0 +1,57 @@
+/*
+** EPITECH PROJECT, 2020
+** getnbr.c
+** File description:
+** parse numbers
+*/
+
+#include <stdbool.h>
+#include <stddef.h>
+
+static bool detect_overflow(int *nb, int add, int sign)
+{
+    if (sign == 1) {
+        if (*nb + add < 0)
+            return (false);
+        *nb = *nb + add;
+        return (true);
+    }
+    if ((*nb + add) * -1 > 0)
+        return (false);
+    *nb = *nb + add;
+    return (true);
+}
+
+static bool detect_sign(char const *str, size_t *i, int *sign)
+{
+    while (!(str[*i] >= '0' && str[*i] <= '9')) {
+        if ((str[*i] == '+' || str[*i] == '-') || str[*i] == ' ') {
+            if (str[*i] == '-')
+                *sign *= -1;
+        } else {
+            return (false);
+        }
+        (*i)++;
+    }
+    return (true);
+}
+
+int my_getnbr(char const *str)
+{
+    size_t i = 0;
+    int sign = 1;
+    int nb = 0;
+
+    if (detect_sign(str, &i, &sign) == 0)
+        return (0);
+    while (str[i] >= '0' && str[i] <= '9') {
+        if (nb * sign == -2147483640 && str[i] - '0' == 8)
+            return (-2147483648);
+        if (!detect_overflow(&nb, str[i] - '0', sign))
+            return (0);
+        if (str[i + 1] >= '0' && str[i + 1] <= '9')
+            nb *= 10;
+        i++;
+    }
+    return (sign * nb);
+}

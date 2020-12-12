@@ -1,0 +1,4 @@
+my_runner
+libmy.a
+a.out
+*.o
