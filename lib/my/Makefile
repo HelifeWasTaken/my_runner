@@ -30,6 +30,7 @@ SRC 		=   my_math/my_pow.c \
 				my_stdlib/my_str_to_word_array.c \
 				my_stdlib/my_swap.c \
 				my_stdlib/my_put_pointer.c \
+				my_stdlib/my_memcpy.c \
 				\
 				my_stdio/my_putchar.c \
 				my_stdio/my_putstr.c \

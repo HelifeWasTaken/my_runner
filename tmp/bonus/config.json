@@ -3,7 +3,7 @@
         "filepath": "./map.csv",
         "tile_size": {
             "x": 16,
-            "y": 16 
+            "y": 16
         },
         "nbasset": 15
     },

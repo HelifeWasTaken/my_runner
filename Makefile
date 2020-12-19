@@ -7,26 +7,31 @@
 
 CC			=	gcc
 
-CFLAGS 		=	-W -Wall -Wextra -Werror -I./include -g3 -ggdb
+CFLAGS 		=	-W -Wall -Wextra -Werror -I./include -g3 -ggdb -lm
 
-LAZYCFLAGS 		=	-W -Wall -Wextra -I./include -g3 -ggdb
+LAZYCFLAGS 	=	-W -Wall -Wextra -I./include -g3 -ggdb -lm
 
 LFLAGS 		=	-lcsfml-window -lcsfml-graphics -lcsfml-system -lcsfml-audio -L./lib -lmy
 
 MAIN 		= 	main.c \
 
-SRC 		=	src/init/init_scene.c \
+SRC 		=	src/fake_waiter.c \
+				src/init/init_scene.c \
+				src/init/map_loader.c \
 				src/game/draw_parralax.c \
 				src/game/draw_player.c \
 				src/game/draw_background.c \
-				src/game/draw_all_game.c
+				src/game/draw_all_game.c \
+				src/game/handle_gravity.c \
+				src/init/getoneline.c \
+				src/split.c
 
 EXEC 	 	=	my_runner
 
 all:  build_lib build ## Calls build_lib and build
 
 build_lib: ## Builds the lib
-	make -C ./lib/my -j8
+	make -C ./lib/my
 
 build: ## build the project
 	$(CC) $(MAIN) $(SRC) $(CFLAGS) $(LFLAGS) -o $(EXEC)

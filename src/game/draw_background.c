@@ -5,7 +5,8 @@
 ** draw_background
 */
 
-#include <my_runner.h>
+#include <my_runner/scene.h>
+#include <my_runner/runner.h>
 
 void draw_background(scene_t *scene, game_manager_t *manager)
 {

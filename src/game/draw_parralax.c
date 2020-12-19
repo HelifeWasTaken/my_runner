@@ -5,7 +5,7 @@
 ** display_para
 */
 
-#include <my_runner.h>
+#include <my_runner/scene.h>
 
 void draw_parralax(scene_t *scene, game_manager_t *manager)
 {

@@ -5,7 +5,8 @@
 ** main
 */
 
-#include <my_runner.h>
+#include <my_runner/runner.h>
+#include <my_runner/scene.h>
 #include <my_stdio.h>
 
 static void show_help(void)
@@ -20,38 +21,70 @@ static void show_help(void)
 
 static int usage(int ac, char **av)
 {
-    if (ac > 2) {
-        my_dprintf(2, "my_runner: You have given too ");
-        my_dprintf(2, "much arguments\nTry : /my_runner -h for the help\n");
-        return (84);
+    if (ac > 2 || ac == 1) {
+        my_dprintf(2, RED"my_runner: " YELLOW"You have given too "
+        "much arguments or too less arguments\n"
+        CYAN"Try :"PURPLE" ./my_runner -h for the help\n"DEFAULT);
+        return (-1);
     }
+    if (av[1][0] != '-')
+        return (1);
     if (!my_strcmp(av[1], "-h")) {
         show_help();
         return (0);
     }
-    my_dprintf(2, RED"my_runner :" YELLOW"\n\tYou have given a wrong"
-                                        " argument !\n"DEFAULT);
-    my_dprintf(2, CYAN"You can try :" GREEN"\n\t./my_runner -h to"
-                                            " show the help\n"DEFAULT);
-    return (84);
+    my_dprintf(2, RED"my_runner :"
+                YELLOW"\n\tYou have given a wrong argument !\n"
+                CYAN"You can try :" GREEN"\n\t./my_runner -h to"
+                " show the help\n"DEFAULT);
+    return (-1);
+}
+
+void prepare_map_positions(scene_t *scene)
+{
+    sfVector2f pos = VECF(3000, 0);
+
+    srand(time(NULL));
+    for (size_t i = 0; scene->map->enemy[i].enemy_id != -2; i++) {
+        pos.x += 200;
+        if (scene->map->enemy[i].enemy_id == -1)
+            continue;
+        scene->map->enemy[i].info.entity_position.x = pos.x;
+        sfSprite_setPosition(scene->map->enemy[i].sprite,
+            scene->map->enemy[i].info.entity_position);
+    }
 }
 
 int main(int ac, char **av)
 {
+    int usage_return = 0;
     game_manager_t manager;
-    scene_t scene = init_scene();
+    scene_t scene = {0};
 
-    if (ac != 1)
-        return (usage(ac, av));
-    manager.window = CREATE_WINDOW(WINDOW_SIZE, WINDOW_NAME);
+    usage_return = usage(ac, av);
+    if (usage_return == 0)
+        return (0);
+    if (usage_return == -1)
+        return (84);
+    if (init_scene(&scene, av) == false)
+        return (84);
+    manager.window = CREATE_WINDOW(WIN_MODE, WINDOW_NAME);
     SET_FRAME_LIMIT(manager.window, 60);
     manager.clock = sfClock_create();
+    manager.score = 0;
+    prepare_map_positions(&scene);
     while (sfRenderWindow_isOpen(manager.window)) {
         while (CHECK_WINDOW_EVENT(manager.window, manager.event)) {
             if (manager.event.type == sfEvtClosed)
                 CLOSE_WINDOW(manager.window);
+            if (sfKeyboard_isKeyPressed(sfKeySpace) &&
+                scene.player.info.state == ON_GROUND) {
+                scene.player.frame.frame = PLAYER_FRAME_ONE;
+                scene.player.info.state = JUMPING;
+            }
         }
         draw_all_game(&scene, &manager);
-   }
+        manager.score += 1;
+    }
     return (0);
 }

@@ -34,6 +34,7 @@ enum {
     JSON_ARRAY,
     JSON_NULL
 };
+
 typedef struct json_file {
     keyname_t key;
     keytype_t type;
@@ -42,6 +43,7 @@ typedef struct json_file {
     struct json_file *next;
     struct json_file *array;
 } json_t;
+
 json_t *jsonparser(char *filepath);
 void free_jsonconfig(json_t **config);
 char *getoneline(char *pathfile);

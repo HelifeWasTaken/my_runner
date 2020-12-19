@@ -13,11 +13,12 @@
 
 char *my_str_realocat(char *dest, char *src)
 {
-    size_t len_of_src = my_strlen(src);
-    size_t len_of_dest = my_strlen(dest);
-    char *new_alloc = my_calloc(sizeof(char), (len_of_dest + len_of_src) + 50);
+    char *new_alloc = NULL;
 
-    my_strcat(new_alloc, dest);
+    if (!dest)
+        return (src);
+    new_alloc = my_calloc(sizeof(char), (my_strlen(dest) + my_strlen(src) + 1));
+    my_memcpy(new_alloc, dest, my_strlen(dest));
     my_strcat(new_alloc, src);
     free(src);
     free(dest);
