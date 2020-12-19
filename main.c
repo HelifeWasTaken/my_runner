@@ -45,13 +45,13 @@ void prepare_map_positions(scene_t *scene)
     sfVector2f pos = VECF(3000, 0);
 
     srand(time(NULL));
-    for (size_t i = 0; scene->map->enemy[i].enemy_id != -2; i++) {
+    for (size_t i = 0; scene->enemy[i].enemy_id != -2; i++) {
         pos.x += 200;
-        if (scene->map->enemy[i].enemy_id == -1)
+        if (scene->enemy[i].enemy_id == -1)
             continue;
-        scene->map->enemy[i].info.entity_position.x = pos.x;
-        sfSprite_setPosition(scene->map->enemy[i].sprite,
-            scene->map->enemy[i].info.entity_position);
+        scene->enemy[i].info.entity_position.x = pos.x;
+        sfSprite_setPosition(scene->enemy[i].sprite,
+            scene->enemy[i].info.entity_position);
     }
 }
 

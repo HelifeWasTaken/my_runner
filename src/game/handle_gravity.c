@@ -29,4 +29,3 @@ bool handle_gravity(gravity_t *info)
     info->entity_position.x += info->vel.x;
     return (false);
 }
-

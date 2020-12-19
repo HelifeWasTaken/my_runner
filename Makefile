@@ -22,6 +22,8 @@ SRC 		=	src/fake_waiter.c \
 				src/game/draw_player.c \
 				src/game/draw_background.c \
 				src/game/draw_all_game.c \
+				src/game/animate_slime.c \
+				src/game/animate_mushroom.c \
 				src/game/handle_gravity.c \
 				src/init/getoneline.c \
 				src/split.c

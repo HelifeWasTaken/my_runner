@@ -23,44 +23,45 @@ static ssize_t get_enemy_type(char enemy)
     return (-1);
 }
 
-static void fill_enemy_info(map_t **new, scene_t *scene, int enemy_id, size_t i)
+static void fill_enemy_info(enemy_t **new, scene_t *scene, int enemy_id,
+size_t i)
 {
     sfVector2f momentum_enemy[4] = {VECF(0, 0), VECF(0, 0), VECF(0, 0),
         VECF(-0.5f, 0.5f)};
     float max_vel_enemy[4] = {0, 0, 0, 4};
     float max_h_enemy[4] = {0, 0, 0, GROUND_HEIGHT_SLIME - 60};
     float min_h_enemy[4] = {0, 0, GROUND_HEIGHT_MUSHROOM, GROUND_HEIGHT_SLIME};
-    (*new)->enemy[i].sprite = sfSprite_create();
-    (*new)->enemy[i].frame = (frame_t){0, 0};
-    (*new)->enemy[i].enemy_id = enemy_id;
-    (*new)->enemy[i].state = IDLE;
-    (*new)->enemy[i].info = (gravity_t){momentum_enemy[enemy_id],
+    (*new)[i].sprite = sfSprite_create();
+    (*new)[i].frame = (frame_t){0, 0};
+    (*new)[i].enemy_id = enemy_id;
+    (*new)[i].state = IDLE;
+    (*new)[i].info = (gravity_t){momentum_enemy[enemy_id],
         max_vel_enemy[enemy_id], VECF(0, 0), min_h_enemy[enemy_id],
         max_h_enemy[enemy_id], VECF(WIN_W + 200, 0), ON_GROUND};
-    SET_TEXTURE((*new)->enemy[i].sprite, scene->enemy_texture[enemy_id]);
-    sfSprite_setScale((*new)->enemy[i].sprite, VECF(3, 3));
+    SET_TEXTURE((*new)[i].sprite, scene->enemy_texture[enemy_id]);
+    sfSprite_setScale((*new)[i].sprite, VECF(3, 3));
 }
 
 static bool set_enemy_in_array(scene_t *scene, char *buffer)
 {
     size_t i;
     int enemy_id = 0;
+    frame_t empty_frame = {0};
+    gravity_t empty_gravity = {0};
 
-    scene->map = malloc(sizeof(map_t));
-    scene->map->enemy = malloc(sizeof(enemy_t) * (my_strlen(buffer) + 1));
+    scene->enemy = malloc(sizeof(enemy_t) * (my_strlen(buffer) + 1));
     for (i = 0; buffer[i] && buffer[i] != '\n'; i++) {
         if (buffer[i] == '.') {
-            scene->map->enemy[i] = (enemy_t){(frame_t){0}, NULL,
-                -1, IDLE, (gravity_t){0}};
+            scene->enemy[i] =
+                (enemy_t){empty_frame, NULL, -1, IDLE, empty_gravity};
             continue;
         }
         enemy_id = get_enemy_type(buffer[i]);
-        if (enemy_id == -1) {
+        if (enemy_id == -1)
             return (false);
-        }
-        fill_enemy_info(&scene->map, scene, enemy_id, i);
+        fill_enemy_info(&scene->enemy, scene, enemy_id, i);
     }
-    scene->map->enemy[i].enemy_id = -2;
+    scene->enemy[i].enemy_id = -2;
     return (true);
 }
 
@@ -72,7 +73,7 @@ bool map_loader(scene_t *scene, char *filepath)
 
     if (map_file == NULL) {
         my_dprintf(2,
-                   RED "my_runner: " YELLOW "Could not open file !\n" DEFAULT);
+            RED "my_runner: " YELLOW "Could not open file !\n" DEFAULT);
         return (false);
     }
     getline(&buffer, &buffer_index, map_file);
