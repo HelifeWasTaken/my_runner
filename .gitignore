@@ -1,4 +1,4 @@
-my_runner
+./my_runner
 libmy.a
 a.out
 *.o
