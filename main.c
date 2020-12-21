@@ -23,8 +23,8 @@ static int usage(int ac, char **av)
 {
     if (ac > 2 || ac == 1) {
         my_dprintf(2, RED"my_runner: " YELLOW"You have given too "
-        "much arguments or too less arguments\n"
-        CYAN"Try :"PURPLE" ./my_runner -h for the help\n"DEFAULT);
+                "much arguments or too less arguments\n"
+                CYAN"Try :"PURPLE" ./my_runner -h for the help\n"DEFAULT);
         return (-1);
     }
     if (av[1][0] != '-')
@@ -34,9 +34,9 @@ static int usage(int ac, char **av)
         return (0);
     }
     my_dprintf(2, RED"my_runner :"
-                YELLOW"\n\tYou have given a wrong argument !\n"
-                CYAN"You can try :" GREEN"\n\t./my_runner -h to"
-                " show the help\n"DEFAULT);
+            YELLOW"\n\tYou have given a wrong argument !\n"
+            CYAN"You can try :" GREEN"\n\t./my_runner -h to"
+            " show the help\n"DEFAULT);
     return (-1);
 }
 
@@ -49,9 +49,24 @@ void prepare_map_positions(scene_t *scene)
         pos.x += 200;
         if (scene->enemy[i].enemy_id == -1)
             continue;
-        scene->enemy[i].info.entity_position.x = pos.x;
+        scene->enemy[i].info.pos.x = pos.x;
         sfSprite_setPosition(scene->enemy[i].sprite,
-            scene->enemy[i].info.entity_position);
+                scene->enemy[i].info.pos);
+    }
+}
+
+
+static void check_game_event(scene_t *scene, game_manager_t *manager)
+{
+    while (CHECK_WINDOW_EVENT(manager->window, manager->event)) {
+        if (manager->event.type == sfEvtClosed)
+            CLOSE_WINDOW(manager->window);
+        if (sfKeyboard_isKeyPressed(sfKeySpace) &&
+                scene->player.info.state == ON_GROUND) {
+            scene->player.frame.frame = 0;
+            scene->player.info.state = JUMPING;
+            scene->player.frame.offset = TIME_SHIFT_PLAYER_JUMP;
+        }
     }
 }
 
@@ -62,10 +77,8 @@ int main(int ac, char **av)
     scene_t scene = {0};
 
     usage_return = usage(ac, av);
-    if (usage_return == 0)
-        return (0);
-    if (usage_return == -1)
-        return (84);
+    if (usage_return == 0 || usage_return == -1)
+        return ((usage_return == 0) ? 0 : 84);
     if (init_scene(&scene, av) == false)
         return (84);
     manager.window = CREATE_WINDOW(WIN_MODE, WINDOW_NAME);
@@ -74,15 +87,7 @@ int main(int ac, char **av)
     manager.score = 0;
     prepare_map_positions(&scene);
     while (sfRenderWindow_isOpen(manager.window)) {
-        while (CHECK_WINDOW_EVENT(manager.window, manager.event)) {
-            if (manager.event.type == sfEvtClosed)
-                CLOSE_WINDOW(manager.window);
-            if (sfKeyboard_isKeyPressed(sfKeySpace) &&
-                scene.player.info.state == ON_GROUND) {
-                scene.player.frame.frame = PLAYER_FRAME_ONE;
-                scene.player.info.state = JUMPING;
-            }
-        }
+        check_game_event(&scene, &manager);
         draw_all_game(&scene, &manager);
         manager.score += 1;
     }

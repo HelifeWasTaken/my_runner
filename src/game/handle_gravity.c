@@ -5,11 +5,11 @@
 ** handle_gravity
 */
 
-#include <my_runner/gravity.h>
+#include <my_csfml.h>
 
-bool handle_gravity(gravity_t *info)
+bool handle_gravity(entity_t *info)
 {
-    if (info->entity_position.y >= info->min_h && info->state == FALLING) {
+    if (info->pos.y >= info->edge.min && info->state == FALLING) {
         info->state = ON_GROUND;
         info->vel.y = 0;
         info->vel.x = 0;
@@ -23,9 +23,9 @@ bool handle_gravity(gravity_t *info)
         info->vel.y += info->momentum.y;
         info->vel.x += info->momentum.x / 2;
     }
-    if (info->entity_position.y <= info->max_h)
+    if (info->pos.y <= info->edge.max)
         info->state = FALLING;
-    info->entity_position.y += info->vel.y;
-    info->entity_position.x += info->vel.x;
+    info->pos.y += info->vel.y;
+    info->pos.x += info->vel.x;
     return (false);
 }

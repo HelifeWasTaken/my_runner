@@ -11,14 +11,13 @@
     #define __RUNNER__PLAYER__H__
     #include <my_csfml.h>
     #include <my_runner/frames.h>
-    #include <my_runner/gravity.h>
 
     typedef struct player {
         sfTexture *texture;
         frame_t frame;
         sfSprite *sprite;
         u_int8_t state;
-        gravity_t info;
+        entity_t info;
     } player_t;
 
     enum {

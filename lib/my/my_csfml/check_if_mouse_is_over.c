@@ -10,5 +10,6 @@
 sfBool check_if_mouse_over_sprite(sfSprite *sprite, sfVector2i mouse_pos)
 {
     sfFloatRect sprite_pos = sfSprite_getGlobalBounds(sprite);
+
     return (sfFloatRect_contains(&sprite_pos, mouse_pos.x, mouse_pos.y));
 }

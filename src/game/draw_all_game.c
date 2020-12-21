@@ -17,7 +17,7 @@ void display_enemy(scene_t *scene, game_manager_t *manager)
             continue;
         (*enemy_anim[scene->enemy[i].enemy_id])(scene, manager, i);
         sfSprite_setPosition(scene->enemy[i].sprite,
-                scene->enemy[i].info.entity_position);
+                scene->enemy[i].info.pos);
         DRAW_SPRITE(manager->window, scene->enemy[i].sprite);
     }
 }

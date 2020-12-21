@@ -31,13 +31,17 @@ size_t i)
     float max_vel_enemy[4] = {0, 0, 0, 4};
     float max_h_enemy[4] = {0, 0, 0, GROUND_HEIGHT_SLIME - 60};
     float min_h_enemy[4] = {0, 0, GROUND_HEIGHT_MUSHROOM, GROUND_HEIGHT_SLIME};
+    frame_t frames_enemy[4] = {FRAME_SET(0, 0, 0), FRAME_SET(0, 0, 0),
+        FRAME_SET(0, 7, MUSHROOM_TIME_SHIFT),
+        FRAME_SET(0, 5, SLIME_TIME_SHIFT)};
     (*new)[i].sprite = sfSprite_create();
-    (*new)[i].frame = (frame_t){0, 0};
+    (*new)[i].frame = frames_enemy[enemy_id];
     (*new)[i].enemy_id = enemy_id;
     (*new)[i].state = IDLE;
-    (*new)[i].info = (gravity_t){momentum_enemy[enemy_id],
-        max_vel_enemy[enemy_id], VECF(0, 0), min_h_enemy[enemy_id],
-        max_h_enemy[enemy_id], VECF(WIN_W + 200, 0), ON_GROUND};
+    (*new)[i].info = (entity_t){momentum_enemy[enemy_id],
+        max_vel_enemy[enemy_id], VECF(0, 0),
+        MIN_MAX_FLOAT(min_h_enemy[enemy_id], max_h_enemy[enemy_id]),
+        VECF(WIN_W + 200, 0), ON_GROUND, ZERO_COL};
     SET_TEXTURE((*new)[i].sprite, scene->enemy_texture[enemy_id]);
     sfSprite_setScale((*new)[i].sprite, VECF(3, 3));
 }
@@ -47,13 +51,13 @@ static bool set_enemy_in_array(scene_t *scene, char *buffer)
     size_t i;
     int enemy_id = 0;
     frame_t empty_frame = {0};
-    gravity_t empty_gravity = {0};
+    entity_t empty_entity = {0};
 
     scene->enemy = malloc(sizeof(enemy_t) * (my_strlen(buffer) + 1));
     for (i = 0; buffer[i] && buffer[i] != '\n'; i++) {
         if (buffer[i] == '.') {
             scene->enemy[i] =
-                (enemy_t){empty_frame, NULL, -1, IDLE, empty_gravity};
+                (enemy_t){empty_frame, NULL, -1, IDLE, empty_entity};
             continue;
         }
         enemy_id = get_enemy_type(buffer[i]);

@@ -27,7 +27,7 @@
         sfSprite *sprite;
         int8_t enemy_id;
         u_int8_t state;
-        gravity_t info;
+        entity_t info;
     } enemy_t;
 
     #define NB_ENEMY                4

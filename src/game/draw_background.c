@@ -14,11 +14,11 @@ void draw_background(scene_t *scene, game_manager_t *manager)
     float seconds = sfTime_asSeconds(time_struct);
 
     if (seconds >
-        scene->background_frame.elapsed_time + TIME_SHIFT_BACKGROUND) {
-        scene->background_frame.elapsed_time = seconds;
+        scene->background_frame.elapsed + TIME_SHIFT_BACKGROUND) {
+        scene->background_frame.elapsed = seconds;
         (scene->background_frame.frame)++;
-        if (scene->background_frame.frame > BACKGROUND_FRAME_THREE)
-            scene->background_frame.frame = BACKGROUND_FRAME_ONE;
+        if (scene->background_frame.frame > 2)
+            scene->background_frame.frame = 0;
     }
     sfSprite_setTextureRect(
             scene->background[scene->background_frame.frame].layer,

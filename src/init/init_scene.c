@@ -46,8 +46,8 @@ static bool get_parralax_texture(scene_t *scene)
 
 bool get_backgrounds(scene_t *scene)
 {
-    scene->background_frame.frame = BACKGROUND_FRAME_ONE;
-    scene->background_frame.elapsed_time = 0;
+    scene->background_frame.frame = 0;
+    scene->background_frame.elapsed = 0;
     scene->background = my_calloc(sizeof(g_background_t), NB_BACKGROUND);
     scene->background[0].texture = CREATE_TEXTURE(BACKGROUND_LAYER_ONE);
     scene->background[1].texture = CREATE_TEXTURE(BACKGROUND_LAYER_TWO);
@@ -67,17 +67,16 @@ bool get_backgrounds(scene_t *scene)
 static bool get_player(scene_t *scene)
 {
     scene->player.state = PLAYER_IDLE;
-    scene->player.frame.frame = PLAYER_FRAME_ONE;
-    scene->player.frame.elapsed_time = 0;
+    scene->player.frame = FRAME_SET(0, 8, TIME_SHIFT_PLAYER_IDLE);
     scene->player.texture = CREATE_TEXTURE(PLAYER_SPRITE);
     if (scene->player.texture == NULL)
         return (false);
     scene->player.sprite = sfSprite_create();
     SET_TEXTURE(scene->player.sprite, scene->player.texture);
     sfSprite_setScale(scene->player.sprite, VECF(4, 4));
-    scene->player.info = (gravity_t){VECF(0.1f, 0.3f), 5, VECF(0, 0),
-        PLAYER_GROUND_HEIGHT, PLAYER_GROUND_HEIGHT - 30,
-        VECF(50, PLAYER_GROUND_HEIGHT), ON_GROUND};
+    scene->player.info = (entity_t){VECF(0.1f, 0.3f), 5, VECF(0, 0),
+        MIN_MAX_FLOAT(PLAYER_GROUND_HEIGHT, PLAYER_GROUND_HEIGHT - 30),
+        VECF(50, PLAYER_GROUND_HEIGHT), ON_GROUND, ZERO_COL};
     return (true);
 }
 

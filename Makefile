@@ -15,18 +15,20 @@ LFLAGS 		=	-lcsfml-window -lcsfml-graphics -lcsfml-system -lcsfml-audio -L./lib 
 
 MAIN 		= 	main.c \
 
-SRC 		=	src/fake_waiter.c \
-				src/init/init_scene.c \
-				src/init/map_loader.c \
-				src/game/draw_parralax.c \
-				src/game/draw_player.c \
-				src/game/draw_background.c \
-				src/game/draw_all_game.c \
-				src/game/animate_slime.c \
-				src/game/animate_mushroom.c \
-				src/game/handle_gravity.c \
-				src/init/getoneline.c \
-				src/split.c
+CSFML_LIB 	= 	./lib/my/my_csfml/animate_sprite.c
+
+SRC 		=	./src/fake_waiter.c \
+				./src/init/init_scene.c \
+				./src/init/map_loader.c \
+				./src/game/draw_parralax.c \
+				./src/game/draw_player.c \
+				./src/game/draw_background.c \
+				./src/game/draw_all_game.c \
+				./src/game/animate_slime.c \
+				./src/game/animate_mushroom.c \
+				./src/game/handle_gravity.c \
+				./src/init/getoneline.c \
+				./src/split.c
 
 EXEC 	 	=	my_runner
 
@@ -36,10 +38,10 @@ build_lib: ## Builds the lib
 	make -C ./lib/my
 
 build: ## build the project
-	$(CC) $(MAIN) $(SRC) $(CFLAGS) $(LFLAGS) -o $(EXEC)
+	$(CC) $(MAIN) $(SRC) $(CSFML_LIB) $(CFLAGS) $(LFLAGS) -o $(EXEC)
 
 lazy: ## build the project without Error
-	$(CC) $(MAIN) $(SRC) $(LAZYCFLAGS) $(LFLAGS) -o $(EXEC)
+	$(CC) $(MAIN) $(SRC) $(CSFML_LIB) $(LAZYCFLAGS) $(LFLAGS) -o $(EXEC)
 
 run:
 	./$(EXEC)
