@@ -15,5 +15,6 @@ void free_all(scene_t *scene, game_manager_t *manager)
     destroy_player(scene);
     destroy_enemy_array(scene);
     destroy_menu(scene);
+    destroy_end(scene);
     destroy_manager(manager);
 }

@@ -30,8 +30,9 @@ static void animate_idle(scene_t *scene, game_manager_t *manager, size_t i)
         IRECT(1, 53, 14, 11), IRECT(17, 53, 14, 11), IRECT(33, 52, 14, 11),
         IRECT(49, 54, 13, 10), IRECT(65, 53, 14, 11)};
 
-    if (should_slime_jump(scene, i))
+    if (should_slime_jump(scene, i)) {
         return;
+    }
     animate_sprite(slime_idle_frames, scene->enemy[i].sprite,
         &scene->enemy[i].frame, manager->clock);
     scene->enemy[i].info.pos.y = GROUND_HEIGHT_SLIME;

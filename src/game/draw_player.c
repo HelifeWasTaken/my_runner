@@ -48,7 +48,7 @@ static void animate_win(scene_t *scene, game_manager_t *manager)
         scene->player.info.pos.x += 15;
     }
     else
-        manager->state = MENU;
+        manager->state = END;
 }
 
 static void animate_die(scene_t *scene, game_manager_t *manager)
@@ -64,7 +64,7 @@ static void animate_die(scene_t *scene, game_manager_t *manager)
         animate_sprite(player_die_frames, scene->player.sprite,
                 &scene->player.frame, manager->clock);
     else
-        manager->state = MENU;
+        manager->state = END;
 }
 
 void draw_player(scene_t *scene, game_manager_t *manager)
