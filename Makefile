@@ -7,7 +7,7 @@
 
 CC			=	gcc
 
-CFLAGS 		=	-W -Wall -Wextra -Werror -I./include -g3 -ggdb -lm
+CFLAGS 		=	-W -Wall -Wextra -Werror -I./include -lm
 
 LAZYCFLAGS 	=	-W -Wall -Wextra -I./include -g3 -ggdb -lm
 

@@ -10,12 +10,12 @@
 static map_t getmap_array(mapgen_t mapinfo)
 {
     char *buffer_ptr = mapinfo.buffer;
-    map_t map_tab = my_calloc(sizeof(unsigned int *) * (mapinfo.height + 1));
+    map_t map_tab = lcalloc(sizeof(unsigned int *), (mapinfo.height + 1));
     mapid_t y;
     mapid_t x;
 
     for (y = 0; y < mapinfo.height; y++) {
-        map_tab[y] = my_calloc(sizeof(mapid_t) * (mapinfo.width + 1));
+        map_tab[y] = lcalloc(sizeof(mapid_t), (mapinfo.width + 1));
         for (x = 0; x <= mapinfo.width; x++) {
             map_tab[y][x] = latoi(buffer_ptr);
             buffer_ptr += lnblen(map_tab[y][x]) + 1;
