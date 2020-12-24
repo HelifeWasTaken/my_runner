@@ -17,7 +17,8 @@ MAIN 		= 	src/main.c
 
 CSFML_LIB 	= 	./lib/my/my_csfml/animate_sprite.c
 
-SRC 		=	./src/init/init_scene.c \
+SRC 		=	./src/init/init_manager.c \
+				./src/init/init_scene.c \
 				./src/init/map_loader.c \
 				./src/init/get_parralax_textures.c \
 				./src/init/get_background.c \
@@ -26,9 +27,18 @@ SRC 		=	./src/init/init_scene.c \
 				./src/init/load_text_textures.c \
 				./src/init/getoneline.c \
 				./src/init/load_music.c \
+				./src/init/enemy_getter/get_mushroom.c \
+				./src/init/enemy_getter/get_slime.c \
+				./src/init/get_empty_enemy.c \
 				\
 				./src/menu/menu_loop.c \
+				./src/menu/draw_menu_cursor.c \
+				./src/menu/animate_menu.c \
 				\
+				./src/end/end_loop.c \
+				./src/end/animate_end.c \
+				\
+				./src/game/game_loop.c \
 				./src/game/draw_parralax.c \
 				./src/game/draw_player.c \
 				./src/game/draw_background.c \
@@ -37,6 +47,9 @@ SRC 		=	./src/init/init_scene.c \
 				./src/game/animate_mushroom.c \
 				./src/game/handle_gravity.c \
 				./src/game/draw_score.c \
+				./src/game/map_setter.c \
+				./src/game/check_if_overlap.c \
+				./src/game/set_as_lose.c \
 				\
 				./src/free/free_all.c \
 				./src/free/destroy_background.c \
@@ -46,6 +59,7 @@ SRC 		=	./src/init/init_scene.c \
 				./src/free/destroy_music.c \
 				./src/free/destroy_player.c \
 				./src/free/destroy_menu.c \
+				./src/free/destroy_end.c \
 				\
 				./src/split.c \
 				./src/fake_waiter.c
