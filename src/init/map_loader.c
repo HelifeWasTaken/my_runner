@@ -12,15 +12,15 @@
 static ssize_t get_enemy_type(char enemy)
 {
     char known_enemy[5] = "fgms";
-    u_int8_t enemy_id[NB_ENEMY * 2] = {FLY_ENEMY, GOBLIN, MUSHROOM, SLIME};
+    u_int8_t enemy_id[NB_ENEMY] = {FLY_ENEMY, GOBLIN, MUSHROOM, SLIME};
 
     if (!enemy)
-        return (-1);
+        return (-2);
     for (size_t i = 0; known_enemy[i]; i++) {
         if (known_enemy[i] == enemy)
             return (enemy_id[i]);
     }
-    return (-1);
+    return (-2);
 }
 
 static void fill_enemy_info(enemy_t **new, scene_t *scene, int enemy_id,
@@ -41,28 +41,37 @@ size_t i)
     (*new)[i].info = (entity_t){momentum_enemy[enemy_id],
         max_vel_enemy[enemy_id], VECF(0, 0),
         MIN_MAX_FLOAT(min_h_enemy[enemy_id], max_h_enemy[enemy_id]),
-        VECF(WIN_W + 200, 0), ON_GROUND, ZERO_COL};
+        VECF(WIN_W + 200, 0), ON_GROUND};
     SET_TEXTURE((*new)[i].sprite, scene->enemy_texture[enemy_id]);
     sfSprite_setScale((*new)[i].sprite, VECF(3, 3));
+}
+
+static enemy_t get_empty_enemy(u_int8_t id)
+{
+    frame_t empty_frame = {0};
+    entity_t empty_entity = {0};
+
+    return ((enemy_t){empty_frame, NULL, id, IDLE, empty_entity});
 }
 
 static bool set_enemy_in_array(scene_t *scene, char *buffer)
 {
     size_t i;
     int enemy_id = 0;
-    frame_t empty_frame = {0};
-    entity_t empty_entity = {0};
 
-    scene->enemy = malloc(sizeof(enemy_t) * (my_strlen(buffer) + 1));
+    scene->enemy = my_calloc(sizeof(enemy_t), (my_strlen(buffer) + 1));
     for (i = 0; buffer[i] && buffer[i] != '\n'; i++) {
         if (buffer[i] == '.') {
-            scene->enemy[i] =
-                (enemy_t){empty_frame, NULL, -1, IDLE, empty_entity};
+            scene->enemy[i] = get_empty_enemy(-1);
             continue;
         }
         enemy_id = get_enemy_type(buffer[i]);
-        if (enemy_id == -1)
+        if (enemy_id == -2) {
+            scene->enemy[i] = get_empty_enemy(-2);
+            my_dprintf(2, RED"my_runner:"YELLOW" The map is not formated well :"
+                " [%c|0x%x] is not supported\n"DEFAULT, buffer[i], buffer[i]);
             return (false);
+        }
         fill_enemy_info(&scene->enemy, scene, enemy_id, i);
     }
     scene->enemy[i].enemy_id = -2;
@@ -80,10 +89,15 @@ bool map_loader(scene_t *scene, char *filepath)
             RED "my_runner: " YELLOW "Could not open file !\n" DEFAULT);
         return (false);
     }
-    getline(&buffer, &buffer_index, map_file);
-    if (buffer == NULL)
+    if (getline(&buffer, &buffer_index, map_file) == -1 || buffer == NULL ||
+        !set_enemy_in_array(scene, buffer)) {
+        fclose(map_file);
+        if (buffer)
+            free(buffer);
         return (false);
-    if (!set_enemy_in_array(scene, buffer))
-        return (false);
+    }
+    fclose(map_file);
+    if (buffer)
+        free(buffer);
     return (true);
 }
