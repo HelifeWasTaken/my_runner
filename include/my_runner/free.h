@@ -18,4 +18,5 @@
     void destroy_enemy_array(scene_t *scene);
     void destroy_menu(scene_t *scene);
     void destroy_manager(game_manager_t *manager);
+    void destroy_end(scene_t *scene);
 #endif

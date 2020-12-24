@@ -31,6 +31,7 @@
     } enemy_t;
 
     #define NB_ENEMY                4
+    #define INF_ARR_ENEMY_SIZE      30
     #define FLY_SPRITE_SHEET        "asset/vania/enemy/fly/sheet.png"
     #define MUSHROOM_SPRITE_SHEET   "asset/vania/enemy/mushroom/sheet.png"
     #define GOBLIN_SPRITE_SHEET     "asset/vania/enemy/goblin/sheet.png"
