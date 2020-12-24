@@ -24,8 +24,8 @@
                 int const base, bool const uppercase);
         size_t my_putnbr_base_unsigned(unsigned long long nb, unsigned int base,
                 bool uppercase);
-        size_t fd_putnbr_base_unsigned(int fd, unsigned long long nb, unsigned int base,
-                bool uppercase);
+        size_t fd_putnbr_base_unsigned(int fd, unsigned long long nb,
+                unsigned int base, bool uppercase);
         size_t my_putfloat(double nb, int precision);
         size_t get_nb_size(long long nb, int base);
         size_t get_nb_size_unsigned(unsigned long long nb, unsigned int base);

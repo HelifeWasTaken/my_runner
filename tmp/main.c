@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2020
+** B-MUL-100-RUN-1-1-myrunner-mattis.dalleau
+** File description:
+** main
+*/
+
 #include <lodeus/stdlib.h>
 #include <lodeus/stdio.h>
 #include <lodeus/json_parser/json.h>
