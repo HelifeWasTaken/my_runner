@@ -16,16 +16,8 @@
         sfTexture *texture;
         frame_t frame;
         sfSprite *sprite;
-        u_int8_t state;
         entity_t info;
     } player_t;
 
-    enum {
-        PLAYER_IDLE,
-        PLAYER_JUMP,
-        PLAYER_FALL
-    };
-
-    #define PLAYER_GROUND_HEIGHT    652
-
+    #define PLAYER_GROUND_HEIGHT    664
 #endif

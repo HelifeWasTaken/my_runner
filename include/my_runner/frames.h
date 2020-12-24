@@ -13,9 +13,9 @@
 
     /////////////////////////// PLAYER /////////////////////////////
 
-    #define PLAYER_SPRITE           "asset/png/characters/01.png"
-    #define TIME_SHIFT_PLAYER_IDLE  0.1f
-    #define TIME_SHIFT_PLAYER_JUMP  0.2f
+    #define PLAYER_SPRITE           "asset/vania/herochar/sheet.png"
+    #define TIME_SHIFT_PLAYER_IDLE  0.07f
+    #define TIME_SHIFT_PLAYER_JUMP  0.15f
 
     //////////////////////// BACKGROUND //////////////////////////
 
@@ -27,10 +27,10 @@
 
     //////////////////////// MUSHROOM //////////////////////////
 
-
     #define MUSHROOM_TIME_SHIFT     0.1f
 
     //////////////////////// SLIME ////////////////////////////
 
     #define SLIME_TIME_SHIFT        0.1f
+
 #endif
