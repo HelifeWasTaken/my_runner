@@ -20,7 +20,7 @@
     char *my_strdup(char const *str);
     char **my_str_to_word_array(char const *str);
     void my_swap(int *a, int *b);
-    void my_itoa(long long value, char *to_fill, char const *base);
+    char *my_itoa(long long value, char const *base);
     void my_putpointer(long nb);
     void fd_putpointer(int fd, long nb);
     size_t get_nb_size(long long nb, int const base);

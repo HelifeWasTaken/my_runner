@@ -29,11 +29,14 @@
     #define CLOSE_WINDOW(win) sfRenderWindow_close(win)
     #define CHECK_WINDOW_EVENT(win, evt) sfRenderWindow_pollEvent(win, &evt)
     #define CREATE_TEXTURE(file) sfTexture_createFromFile(file, NULL)
+    #define CREATE_SOUND_BUFFER(file) sfSoundBuffer_createFromFile(file)
+    #define CREATE_MUSIC(file) sfMusic_createFromFile(file)
     #define SET_TEXTURE(sp, texture) sfSprite_setTexture(sp, texture, sfFalse)
     #define SET_REPEATED_TEXTURE(texture) sfTexture_setRepeated(texture, sfTrue)
     #define CLEAR_WINDOW(window) sfRenderWindow_clear(window, sfBlack)
     #define DISPLAY_WINDOW(window) sfRenderWindow_display(window)
     #define DRAW_SPRITE(win, sp) sfRenderWindow_drawSprite(win, sp, NULL)
+    #define DRAW_TEXT(win, txt) sfRenderWindow_drawText(win, txt, NULL)
     #define IRECT(l, t, w, h) (sfIntRect){l, t, w, h}
     #define FRECT(l, t, w, h) (sfFloatRect){l, t, w, h}
     #define VECF(x, y) (sfVector2f){x, y}
@@ -42,7 +45,9 @@
     enum {
         ON_GROUND,
         JUMPING,
-        FALLING
+        FALLING,
+        DYING,
+        WIN
     };
 
     typedef struct {
@@ -61,14 +66,8 @@
         u_int8_t frame_max;
         float elapsed;
         float offset;
+        sfIntRect rect;
     } frame_t;
-
-    struct collision_side {
-        bool top;
-        bool bottom;
-        bool left;
-        bool right;
-    };
 
     typedef struct {
         sfVector2f momentum;
@@ -77,10 +76,10 @@
         min_max_float_t edge;
         sfVector2f pos;
         u_int8_t state;
-        struct collision_side col;
     } entity_t;
 
-    #define FRAME_SET(min, max, offset) (frame_t){0, min, max, 0, offset}
+    #define FRAME_SET(min, max, offset) \
+        (frame_t){0, min, max, 0, offset, IRECT(0, 0, 0, 0)}
     #define ZERO_COL (struct collision_side){false, false, false, false}
     #define MIN_MAX_FLOAT(min, max) (min_max_float_t){min, max}
     #define MIN_MAX_INT(min, max) (min_max_int_t){min, max}
@@ -88,5 +87,7 @@
     bool handle_gravity(entity_t *info);
     void animate_sprite(const sfIntRect *rect, sfSprite *sprite,
             frame_t *frame, sfClock *clock);
+    struct collision_side detect_collision(sfVector2f p1, sfIntRect r1,
+        sfVector2f p2, sfIntRect r2);
 
 #endif

@@ -17,7 +17,8 @@ void animate_sprite(const sfIntRect *rect, sfSprite *sprite, frame_t *frame,
     if (seconds > frame->elapsed + frame->offset) {
         if (frame->frame == frame->frame_max - 1)
             frame->frame = 0;
-        sfSprite_setTextureRect(sprite, rect[frame->frame]);
+        frame->rect = rect[frame->frame];
+        sfSprite_setTextureRect(sprite, frame->rect);
         frame->frame++;
         frame->elapsed = seconds;
     }

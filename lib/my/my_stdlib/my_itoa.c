@@ -8,12 +8,14 @@
 #include <stddef.h>
 #include <my_str.h>
 #include <stdbool.h>
-#include <my_stdio.h>
+#include <stdlib.h>
+#include <my_stdlib.h>
 
-void my_itoa(long long value, char *to_fill, char const *base)
+char *my_itoa(long long value, char const *base)
 {
     size_t i = 0;
     size_t size_base = my_strlen(base);
+    char *to_fill = malloc(sizeof(char) * (get_nb_size(value, size_base) + 1));
     bool is_neg = false;
 
     if (value < 0) {
@@ -28,5 +30,5 @@ void my_itoa(long long value, char *to_fill, char const *base)
     if (is_neg)
         to_fill[i++] = '-';
     to_fill[i] = '\0';
-    my_revstr(to_fill);
+    return (my_revstr(to_fill));
 }
