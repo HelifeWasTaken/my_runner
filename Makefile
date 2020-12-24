@@ -13,13 +13,22 @@ LAZYCFLAGS 	=	-W -Wall -Wextra -I./include -g3 -ggdb -lm
 
 LFLAGS 		=	-lcsfml-window -lcsfml-graphics -lcsfml-system -lcsfml-audio -L./lib -lmy
 
-MAIN 		= 	main.c \
+MAIN 		= 	src/main.c
 
 CSFML_LIB 	= 	./lib/my/my_csfml/animate_sprite.c
 
-SRC 		=	./src/fake_waiter.c \
-				./src/init/init_scene.c \
+SRC 		=	./src/init/init_scene.c \
 				./src/init/map_loader.c \
+				./src/init/get_parralax_textures.c \
+				./src/init/get_background.c \
+				./src/init/load_enemy_textures.c \
+				./src/init/get_player.c \
+				./src/init/load_text_textures.c \
+				./src/init/getoneline.c \
+				./src/init/load_music.c \
+				\
+				./src/menu/menu_loop.c \
+				\
 				./src/game/draw_parralax.c \
 				./src/game/draw_player.c \
 				./src/game/draw_background.c \
@@ -27,8 +36,19 @@ SRC 		=	./src/fake_waiter.c \
 				./src/game/animate_slime.c \
 				./src/game/animate_mushroom.c \
 				./src/game/handle_gravity.c \
-				./src/init/getoneline.c \
-				./src/split.c
+				./src/game/draw_score.c \
+				\
+				./src/free/free_all.c \
+				./src/free/destroy_background.c \
+				./src/free/destroy_enemy_array.c \
+				./src/free/destroy_enemy_textures.c \
+				./src/free/destroy_manager.c \
+				./src/free/destroy_music.c \
+				./src/free/destroy_player.c \
+				./src/free/destroy_menu.c \
+				\
+				./src/split.c \
+				./src/fake_waiter.c
 
 EXEC 	 	=	my_runner
 
@@ -43,12 +63,10 @@ build: ## build the project
 lazy: ## build the project without Error
 	$(CC) $(MAIN) $(SRC) $(CSFML_LIB) $(LAZYCFLAGS) $(LFLAGS) -o $(EXEC)
 
-run:
-	./$(EXEC)
+run: build
+	./$(EXEC) map/map1.txt
 
-build_run: build run
-
-rerun: re build run
+rerun: re run
 
 clean: ## Clean every temporay well knowed files
 	@find . -type f \( -name "\#*\#" -o -name "*.swp" \) -delete

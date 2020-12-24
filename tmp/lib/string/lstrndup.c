@@ -16,9 +16,8 @@ char *lstrndup(char const *str, size_t n)
     if (new_str) {
         for (i = 0; str[i] && i < n; i++)
             new_str[i] = str[i];
-        for (; i < n; i++)
+        for (; i < n + 1; i++)
             new_str[i] = '\0';
     }
-    new_str[n] = '\0';
     return (new_str);
 }
