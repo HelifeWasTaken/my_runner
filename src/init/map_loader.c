@@ -11,8 +11,8 @@
 
 static ssize_t get_enemy_type(char enemy)
 {
-    char known_enemy[5] = "fgms";
-    u_int8_t enemy_id[NB_ENEMY] = {FLY_ENEMY, GOBLIN, MUSHROOM, SLIME};
+    char known_enemy[5] = "fnms";
+    u_int8_t enemy_id[NB_ENEMY] = {FLY_ENEMY, NINJA, MUSHROOM, SLIME};
 
     if (!enemy)
         return (-2);
@@ -26,13 +26,16 @@ static ssize_t get_enemy_type(char enemy)
 static void fill_enemy_info(enemy_t **new, scene_t *scene, int enemy_id,
         size_t i)
 {
-    void (*getter_ptr[4]) (enemy_t **new, int enemy_id, size_t i) =
-    {0, 0, &get_mushroom, &get_slime};
+    void (*getter_ptr[4])(enemy_t **new, int enemy_id, size_t i) =
+    {0, &get_ninja, &get_mushroom, &get_slime};
 
     (*getter_ptr[enemy_id])(new, enemy_id, i);
     (*new)[i].sprite = sfSprite_create();
     SET_TEXTURE((*new)[i].sprite, scene->enemy_texture[enemy_id]);
-    sfSprite_setScale((*new)[i].sprite, VECF(3, 3));
+    if ((*new)[i].enemy_id != NINJA)
+        sfSprite_setScale((*new)[i].sprite, VECF(3, 3));
+    else
+        sfSprite_setScale((*new)[i].sprite, VECF(2.75, 2.75));
 }
 
 static bool set_enemy_in_array(scene_t *scene, char *buff)

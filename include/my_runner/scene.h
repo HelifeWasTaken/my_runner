@@ -41,6 +41,7 @@
     void draw_all_game(scene_t *scene, game_manager_t *manager);
     void animate_slime(scene_t *scene, game_manager_t *manager, size_t i);
     void animate_mushroom(scene_t *scene, game_manager_t *manager, size_t i);
+    void animate_ninja(scene_t *scene, game_manager_t *manager, size_t i);
     void display_score(scene_t *scene, game_manager_t *manager);
     bool check_if_overlap(scene_t *scene, size_t i);
     void set_game_as_lose(scene_t *scene);
@@ -65,6 +66,7 @@
     bool prepare_map_positions(scene_t *scene, char *file);
     void get_mushroom(enemy_t **new, int enemy_id, size_t i);
     void get_slime(enemy_t **new, int enemy_id, size_t i);
+    void get_ninja(enemy_t **new, int enemy_id, size_t i);
 
     /////////////////////////////// FREE ////////////////////////////////////
 

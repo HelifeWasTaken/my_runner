@@ -39,7 +39,10 @@ static void map_game_loop(scene_t *scene, game_manager_t *manager)
     while (sfRenderWindow_isOpen(manager->window) && manager->state == GAME) {
         check_game_event(scene, manager);
         draw_all_game(scene, manager);
-        manager->score += 1;
+        if (manager->state != END && (scene->player.info.state == ON_GROUND ||
+            scene->player.info.state == JUMPING ||
+            scene->player.info.state == FALLING))
+            manager->score += 1;
     }
     sfMusic_stop(scene->music.game);
 }
@@ -52,7 +55,10 @@ static void infinity_game_loop(scene_t *scene, game_manager_t *manager)
     while (sfRenderWindow_isOpen(manager->window) && manager->state == GAME) {
         check_game_event(scene, manager);
         draw_all_game(scene, manager);
-        manager->score += 1;
+        if (manager->state != END && (scene->player.info.state == ON_GROUND ||
+            scene->player.info.state == JUMPING ||
+            scene->player.info.state == FALLING))
+            manager->score += 1;
     }
     sfMusic_stop(scene->music.game);
 }

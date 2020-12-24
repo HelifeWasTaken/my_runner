@@ -12,7 +12,7 @@
 
     enum {
         FLY_ENEMY,
-        GOBLIN,
+        NINJA,
         MUSHROOM,
         SLIME
     };
@@ -34,9 +34,10 @@
     #define INF_ARR_ENEMY_SIZE      30
     #define FLY_SPRITE_SHEET        "asset/vania/enemy/fly/sheet.png"
     #define MUSHROOM_SPRITE_SHEET   "asset/vania/enemy/mushroom/sheet.png"
-    #define GOBLIN_SPRITE_SHEET     "asset/vania/enemy/goblin/sheet.png"
+    #define NINJA_SPRITE_SHEET      "asset/ninja_sheet.png"
     #define SLIME_SPRITE_SHEET      "asset/vania/enemy/slime/sheet.png"
 
     #define GROUND_HEIGHT_MUSHROOM  677
+    #define GROUND_HEIGHT_NINJA     650
     #define GROUND_HEIGHT_SLIME     691
 #endif

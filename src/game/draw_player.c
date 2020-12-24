@@ -32,6 +32,10 @@ static void animate_idle_run(scene_t *scene, game_manager_t *manager)
             &scene->player.frame, manager->clock);
     if (scene->player.info.pos.x > 60)
         scene->player.info.pos.x -= 2;
+    if (scene->player.info.pos.x < 60)
+        scene->player.info.pos.x += 2;
+    if (scene->player.info.state == INIT && scene->player.info.pos.x >= 60)
+        scene->player.info.state = ON_GROUND;
 }
 
 static void animate_win(scene_t *scene, game_manager_t *manager)
@@ -69,8 +73,8 @@ static void animate_die(scene_t *scene, game_manager_t *manager)
 
 void draw_player(scene_t *scene, game_manager_t *manager)
 {
-    void (*player_anim[5])(scene_t *, game_manager_t *) =
-        {&animate_idle_run, &animate_jump, &animate_jump,
+    void (*player_anim[6])(scene_t *, game_manager_t *) =
+        {&animate_idle_run, &animate_idle_run, &animate_jump, &animate_jump,
             &animate_die, &animate_win};
     (*player_anim[scene->player.info.state])(scene, manager);
     sfSprite_setPosition(scene->player.sprite,

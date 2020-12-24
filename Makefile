@@ -45,6 +45,7 @@ SRC 		=	./src/init/init_manager.c \
 				./src/game/draw_all_game.c \
 				./src/game/animate_slime.c \
 				./src/game/animate_mushroom.c \
+				./src/game/animate_ninja.c \
 				./src/game/handle_gravity.c \
 				./src/game/draw_score.c \
 				./src/game/map_setter.c \

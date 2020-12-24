@@ -43,6 +43,7 @@
     #define VECI(x, y) (sfVector2i){x, y}
 
     enum {
+        INIT,
         ON_GROUND,
         JUMPING,
         FALLING,

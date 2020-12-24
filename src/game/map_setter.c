@@ -38,28 +38,33 @@ static void malloc_infinite_array(scene_t *scene)
     scene->enemy = my_calloc(sizeof(enemy_t), INF_ARR_ENEMY_SIZE + 1);
     for (size_t i = 0; i < INF_ARR_ENEMY_SIZE; i++)
         scene->enemy[i].sprite = sfSprite_create();
+    scene->enemy[INF_ARR_ENEMY_SIZE] = get_empty_enemy(-2);
 }
 
-static void set_positions_sprites(scene_t *scene, size_t i)
+static void set_positions_sprites(scene_t *scene, size_t i, float *pos)
 {
-    static float pos = WIN_W + 100;
     int id;
     void (*ptr_getter[4])(enemy_t **, int, size_t) =
-        {0, 0, &get_mushroom, &get_slime};
+        {0, &get_ninja, &get_mushroom, &get_slime};
 
     id = rand() % 4;
-    id = (id == 0) ? 2 : ((id == 1) ?  3 : id);
+    id = (id == 0) ? 2 : id;
     (*ptr_getter[id])(&scene->enemy, id, i);
     SET_TEXTURE(scene->enemy[i].sprite, scene->enemy_texture[id]);
-    sfSprite_setScale(scene->enemy[i].sprite, VECF(3, 3));
-    scene->enemy[i].info.pos.x = pos;
+    if (id != NINJA)
+        sfSprite_setScale(scene->enemy[i].sprite, VECF(3, 3));
+    else
+        sfSprite_setScale(scene->enemy[i].sprite, VECF(2.75, 2.75));
+    scene->enemy[i].info.pos.x = *pos;
     sfSprite_setPosition(scene->enemy[i].sprite,
         scene->enemy[i].info.pos);
-    pos += rand() % 500 + 200;
+    *pos += rand() % 500 + 200;
 }
 
 void prepare_infinity_position(scene_t *scene)
 {
+    float pos = WIN_W + 100;
+
     srand(time(NULL));
     malloc_infinite_array(scene);
     for (size_t i = 0; i < INF_ARR_ENEMY_SIZE; i++) {
@@ -67,7 +72,6 @@ void prepare_infinity_position(scene_t *scene)
             scene->enemy[i].enemy_id = -1;
             continue;
         }
-        set_positions_sprites(scene, i);
+        set_positions_sprites(scene, i, &pos);
     }
-    scene->enemy[INF_ARR_ENEMY_SIZE] = get_empty_enemy(-2);
 }

@@ -10,9 +10,9 @@
 void reset_player(scene_t *scene)
 {
     scene->player.frame = FRAME_SET(0, 6, TIME_SHIFT_PLAYER_IDLE);
-    scene->player.info = (entity_t){VECF(0.08f, 0.4f), 5, VECF(0, 0),
-        MIN_MAX_FLOAT(PLAYER_GROUND_HEIGHT, PLAYER_GROUND_HEIGHT - 30),
-        VECF(50, PLAYER_GROUND_HEIGHT), ON_GROUND};
+    scene->player.info = (entity_t){VECF(0.04f, 1), 5, VECF(0, 0),
+        MIN_MAX_FLOAT(PLAYER_GROUND_HEIGHT, PLAYER_GROUND_HEIGHT - 45),
+        VECF(-100, PLAYER_GROUND_HEIGHT), INIT};
     sfSprite_setTextureRect(scene->player.sprite, IRECT(0, 0, 0, 0));
 }
 

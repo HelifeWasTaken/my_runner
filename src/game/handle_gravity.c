@@ -13,6 +13,7 @@ bool handle_gravity(entity_t *info)
         info->state = ON_GROUND;
         info->vel.y = 0;
         info->vel.x = 0;
+        info->pos.y = info->edge.min;
         return (true);
     }
     if (info->state == JUMPING) {

@@ -11,7 +11,7 @@
 static void animate_enemy(scene_t *scene, game_manager_t *manager, size_t i)
 {
     void (*enemy_anim[4])(scene_t *, game_manager_t *, size_t i) =
-        {0, 0, &animate_mushroom, &animate_slime};
+        {0, &animate_ninja, &animate_mushroom, &animate_slime};
 
     (*enemy_anim[scene->enemy[i].enemy_id])(scene, manager, i);
     sfSprite_setPosition(scene->enemy[i].sprite,
@@ -23,7 +23,7 @@ static void display_enemy(scene_t *scene, game_manager_t *manager)
 {
     bool map_end = true;
 
-    if (scene->player.info.state == DYING)
+    if (scene->player.info.state == DYING || scene->player.info.state == INIT)
         return;
     for (size_t i = 0; scene->enemy[i].enemy_id != -2; i++) {
         if (scene->enemy[i].enemy_id == -1 || scene->enemy[i].info.pos.x < -400)
@@ -36,8 +36,10 @@ static void display_enemy(scene_t *scene, game_manager_t *manager)
     if (map_end && scene->player.info.state == ON_GROUND) {
         if (manager->infinty_enabled)
             prepare_infinity_position(scene);
-        else
+        else {
             scene->player.info.state = WIN;
+            scene->player.info.pos.y = PLAYER_GROUND_HEIGHT;
+        }
     }
 }
 
@@ -47,7 +49,8 @@ void draw_all_game(scene_t *scene, game_manager_t *manager)
         CLEAR_WINDOW(manager->window);
         draw_background(scene, manager);
         draw_parralax(scene, manager);
-        display_enemy(scene, manager);
+        if (scene->player.info.state != INIT)
+            display_enemy(scene, manager);
     } else
         sfRenderWindow_clear(manager->window, sfRed);
     draw_player(scene, manager);

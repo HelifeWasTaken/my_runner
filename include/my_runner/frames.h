@@ -33,4 +33,8 @@
 
     #define SLIME_TIME_SHIFT        0.1f
 
+    //////////////////////// SLIME ////////////////////////////
+
+    #define NINJA_TIME_SHIFT        0.1f
+
 #endif
