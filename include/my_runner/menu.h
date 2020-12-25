@@ -21,6 +21,11 @@
         sfTexture *texture_b1;
         sfSprite *sprite_b2;
         sfTexture *texture_b2;
+        sfTexture *error_texture;
+        sfSprite *error_sprite;
+        bool trigger_error;
+        sfText *filepath;
+        sfFont *font_file;
         u_int8_t choice;
     } menu_t;
 
@@ -29,4 +34,6 @@
     #define SOUND_MENU_ASSET            "./asset/menu/menu.ogg"
     #define PLAY_BUTTON_ASSET           "./asset/menu/play.png"
     #define QUIT_BUTTON_ASSET           "./asset/menu/quit.png"
+    #define ERROR_BUTTON_ASSET          "./asset/menu/error.png"
+    #define FONT_ASSET                  "./asset/font/bit.ttf"
 #endif

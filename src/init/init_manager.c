@@ -15,7 +15,7 @@ bool init_manager(game_manager_t *manager, char *file)
     SET_FRAME_LIMIT(manager->window, 60);
     manager->clock = sfClock_create();
     manager->score = 0;
-    manager->state = MENU;
-    manager->map = file;
+    manager->state = END;
+    manager->map = my_strdup(file);
     return (true);
 }

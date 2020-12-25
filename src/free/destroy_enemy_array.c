@@ -19,5 +19,6 @@ void destroy_enemy_array(scene_t *scene)
     }
     if (scene->enemy[i].sprite)
         sfSprite_destroy(scene->enemy[i].sprite);
+    scene->enemy = NULL;
     free(scene->enemy);
 }

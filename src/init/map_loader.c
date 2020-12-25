@@ -6,6 +6,7 @@
 */
 
 #include <my_runner/scene.h>
+#include <my_runner/free.h>
 #include <my_str.h>
 #include <stdio.h>
 
@@ -62,22 +63,33 @@ static bool set_enemy_in_array(scene_t *scene, char *buff)
     return (true);
 }
 
+static void free_map(scene_t *scene, char *buffer, FILE *file)
+{
+    if (scene->enemy)
+        destroy_enemy_array(scene);
+    if (buffer) {
+        buffer = NULL;
+        free(buffer);
+    }
+    if (file)
+        fclose(file);
+}
+
 bool map_loader(scene_t *scene, char *filepath)
 {
     char *buffer = NULL;
     FILE *map_file = fopen(filepath, "r");
     size_t buffer_index = 0;
 
+    if (scene->enemy)
+        destroy_enemy_array(scene);
     if (map_file == NULL) {
-        my_dprintf(2,
-                RED "my_runner: " YELLOW "Could not open file !\n" DEFAULT);
+        free_map(scene, buffer, map_file);
         return (false);
     }
     if (getline(&buffer, &buffer_index, map_file) == -1 || buffer == NULL ||
             !set_enemy_in_array(scene, buffer)) {
-        fclose(map_file);
-        if (buffer)
-            free(buffer);
+        free_map(scene, buffer, map_file);
         return (false);
     }
     fclose(map_file);

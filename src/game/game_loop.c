@@ -26,16 +26,15 @@ static void check_game_event(scene_t *scene, game_manager_t *manager)
 
 static void map_game_loop(scene_t *scene, game_manager_t *manager)
 {
+    scene->menu.trigger_error = false;
     scene->world.choice = change_world(scene->world.choice);
     if (!prepare_map_positions(scene, manager->map)) {
-        manager->state = QUIT;
-        my_dprintf(2, RED"my_runner: "
-                YELLOW"Major error occured\n\t\t"
-                "Please make sure that the file exist and is well formatted\n"
-                DEFAULT);
+        scene->menu.trigger_error = true;
+        manager->state = MENU;
         return;
     }
     manager->score = 0;
+    sfMusic_stop(scene->menu.music);
     sfMusic_play(scene->music.game);
     while (sfRenderWindow_isOpen(manager->window) && manager->state == GAME) {
         check_game_event(scene, manager);
@@ -53,6 +52,7 @@ static void infinity_game_loop(scene_t *scene, game_manager_t *manager)
     scene->world.choice = change_world(scene->world.choice);
     prepare_infinity_position(scene);
     manager->score = 0;
+    sfMusic_stop(scene->menu.music);
     sfMusic_play(scene->music.game);
     while (sfRenderWindow_isOpen(manager->window) && manager->state == GAME) {
         check_game_event(scene, manager);

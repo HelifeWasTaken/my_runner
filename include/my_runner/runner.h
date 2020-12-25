@@ -44,6 +44,8 @@
 
     void fake_wait_message(char *message);
     char *getoneline(char *pathfile);
+    char *concat_string(char *s1, char *s2);
+    char *handle_keyboard(char *buf);
 
     //////////////////////////////// USAGE ////////////////////////////////
 

@@ -37,7 +37,6 @@
     void animate_slime(scene_t *scene, game_manager_t *manager, size_t i);
     void animate_mushroom(scene_t *scene, game_manager_t *manager, size_t i);
     void animate_ninja(scene_t *scene, game_manager_t *manager, size_t i);
-    void display_score(scene_t *scene, game_manager_t *manager);
     bool check_if_overlap(scene_t *scene, size_t i);
     void set_game_as_lose(scene_t *scene);
 
@@ -56,6 +55,8 @@
     bool map_loader(scene_t *scene, char *filepath);
     bool load_enemy_textures(scene_t *scene);
     bool load_text_textures(scene_t *scene);
+    bool load_end(scene_t *scene);
+    bool load_menu(scene_t *scene);
     bool init_manager(game_manager_t *manager, char *file);
 
     bool get_background(scene_t *scene);
@@ -92,4 +93,6 @@
 
     ////////////////////////////////////////////////////////////////////////
 
+    void display_info(sfText *text, sfRenderWindow *window,
+        char *s1, char *s2);
 #endif

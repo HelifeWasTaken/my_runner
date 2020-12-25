@@ -33,6 +33,8 @@ SRC 		=	./src/init/get_parralax_textures.c \
 				./src/init/load_text_textures.c \
 				./src/init/getoneline.c \
 				./src/init/load_music.c \
+				./src/init/load_menu.c \
+				./src/init/load_end.c \
 				./src/init/enemy_getter/get_mushroom.c \
 				./src/init/enemy_getter/get_slime.c \
 				./src/init/get_empty_enemy.c \
@@ -60,6 +62,10 @@ SRC 		=	./src/init/get_parralax_textures.c \
 				./src/game/draw_volcano_world.c \
 				./src/game/draw_forest_world.c \
 				\
+				./config/parse_score.c \
+				./config/add_score_node.c \
+				./config/bubble_sort_score_board.c \
+				\
 				./src/free/free_all.c \
 				\
 				./src/free/destroy_world.c \
@@ -76,7 +82,8 @@ SRC 		=	./src/init/get_parralax_textures.c \
 				./src/free/destroy_end.c \
 				\
 				./src/split.c \
-				./src/fake_waiter.c
+				./src/fake_waiter.c \
+				./src/init/manager_keyboard.c
 
 EXEC 	 	=	my_runner
 

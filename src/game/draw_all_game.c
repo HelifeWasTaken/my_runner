@@ -64,6 +64,7 @@ void draw_all_game(scene_t *scene, game_manager_t *manager)
     } else
         sfRenderWindow_clear(manager->window, sfRed);
     draw_player(scene, manager);
-    display_score(scene, manager);
+    display_info(scene->text.text_score, manager->window,
+        my_strdup("score: "), my_itoa(manager->score, "0123456789"));
     DISPLAY_WINDOW(manager->window);
 }

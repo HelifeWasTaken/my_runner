@@ -11,11 +11,14 @@
 static void draw_rest_animation(scene_t *scene, game_manager_t *manager,
         const sfIntRect *rects)
 {
-    display_score(scene, manager);
+    display_info(scene->text.text_score, manager->window,
+        my_strdup("score: "), my_itoa(manager->score, "0123456789"));
     DRAW_SPRITE(manager->window, scene->menu.sprite_b2);
     animate_sprite(rects, scene->player.sprite,
             &scene->player.frame, manager->clock);
     DRAW_SPRITE(manager->window, scene->player.sprite);
+    DRAW_TEXT(manager->window, scene->end.score_board);
+    DRAW_TEXT(manager->window, scene->end.username_text);
     DISPLAY_WINDOW(manager->window);
 }
 

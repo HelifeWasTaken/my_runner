@@ -12,9 +12,11 @@ static void check_key_press_menu(scene_t *scene, game_manager_t *manager)
 {
     if (sfKeyboard_isKeyPressed(sfKeyUp) || sfKeyboard_isKeyPressed(sfKeyDown))
         scene->menu.choice = !scene->menu.choice;
-    if (sfKeyboard_isKeyPressed(sfKeyEnter) ||
+    else if (sfKeyboard_isKeyPressed(sfKeyEnter) ||
         sfKeyboard_isKeyPressed(sfKeySpace))
         manager->state = (scene->menu.choice == GAME_CHOICE) ? GAME : QUIT;
+    else
+        manager->map = handle_keyboard(manager->map);
 }
 
 static void check_menu_event(scene_t *scene, game_manager_t *manager)
@@ -34,5 +36,5 @@ void menu_loop(scene_t *scene, game_manager_t *manager)
         check_menu_event(scene, manager);
         animate_menu(scene, manager);
     }
-    sfMusic_stop(scene->menu.music);
+    sfMusic_pause(scene->menu.music);
 }
