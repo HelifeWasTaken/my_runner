@@ -34,21 +34,31 @@ static void display_enemy(scene_t *scene, game_manager_t *manager)
         animate_enemy(scene, manager, i);
     }
     if (map_end && scene->player.info.state == ON_GROUND) {
-        if (manager->infinty_enabled)
-            prepare_infinity_position(scene);
-        else {
-            scene->player.info.state = WIN;
-            scene->player.info.pos.y = PLAYER_GROUND_HEIGHT;
-        }
+        scene->player.info.state = WIN;
+        scene->player.info.pos.y = PLAYER_GROUND_HEIGHT;
+    }
+}
+
+void draw_snow(scene_t *scene, game_manager_t *manager)
+{
+    sfTime time_struct = sfClock_getElapsedTime(manager->clock);
+    float seconds = sfTime_asSeconds(time_struct);
+
+    FOR_EACH_PARRALAX(i, NB_PARA_SNOW) {
+        sfSprite_setTextureRect(scene->world.snow.para[i].layer,
+            IRECT(seconds * (i * 30) + i * 30 + 5 + 120, 0, 512, 256));
+        DRAW_SPRITE(manager->window, scene->world.snow.para[i].layer);
     }
 }
 
 void draw_all_game(scene_t *scene, game_manager_t *manager)
 {
+    void (*ptr_world[3])(scene_t *, game_manager_t *) =
+        {&draw_volcano, &draw_forest, &draw_snow};
+
     if (scene->player.info.state != DYING) {
         CLEAR_WINDOW(manager->window);
-        draw_background(scene, manager);
-        draw_parralax(scene, manager);
+        (ptr_world[scene->world.choice])(scene, manager);
         if (scene->player.info.state != INIT)
             display_enemy(scene, manager);
     } else

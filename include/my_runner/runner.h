@@ -33,10 +33,14 @@
         bool infinty_enabled;
     } game_manager_t;
 
+    ////////////////////////// WINDOW INFO //////////////////////////////////
+
     #define WINDOW_NAME             "my_runner"
-    #define WIN_W                   1300 // 800
+    #define WIN_W                   1300
     #define WIN_H                   768
     #define WIN_MODE                (sfVideoMode) {WIN_W, WIN_H, 32}
+
+    /////////////////////////////// MISC ///////////////////////////////////
 
     void fake_wait_message(char *message);
     char *getoneline(char *pathfile);

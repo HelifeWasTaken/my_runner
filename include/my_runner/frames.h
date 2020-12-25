@@ -19,10 +19,6 @@
 
     //////////////////////// BACKGROUND //////////////////////////
 
-    #define NB_BACKGROUND           3
-    #define BACKGROUND_LAYER_ONE    "asset/png/night/volcano/anim01.png"
-    #define BACKGROUND_LAYER_TWO    "asset/png/night/volcano/anim02.png"
-    #define BACKGROUND_LAYER_THREE  "asset/png/night/volcano/anim03.png"
     #define TIME_SHIFT_BACKGROUND   0.18f
 
     //////////////////////// MUSHROOM //////////////////////////

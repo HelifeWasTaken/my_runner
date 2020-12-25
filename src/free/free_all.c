@@ -9,7 +9,7 @@
 
 void free_all(scene_t *scene, game_manager_t *manager)
 {
-    destroy_background(scene);
+    destroy_world(scene);
     destroy_music(scene);
     destroy_enemy_textures(scene);
     destroy_player(scene);

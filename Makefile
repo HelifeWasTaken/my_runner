@@ -17,11 +17,17 @@ MAIN 		= 	src/main.c
 
 CSFML_LIB 	= 	./lib/my/my_csfml/animate_sprite.c
 
-SRC 		=	./src/init/init_manager.c \
+SRC 		=	./src/init/get_parralax_textures.c \
+				./src/init/get_volcano_parralax.c \
+				./src/init/get_forest_parralax.c \
+				./src/init/get_snow_parralax.c \
+				\
+				./src/init/get_background.c \
+				./src/init/get_volcano_background.c \
+				\
+				./src/init/init_manager.c \
 				./src/init/init_scene.c \
 				./src/init/map_loader.c \
-				./src/init/get_parralax_textures.c \
-				./src/init/get_background.c \
 				./src/init/load_enemy_textures.c \
 				./src/init/get_player.c \
 				./src/init/load_text_textures.c \
@@ -39,9 +45,7 @@ SRC 		=	./src/init/init_manager.c \
 				./src/end/animate_end.c \
 				\
 				./src/game/game_loop.c \
-				./src/game/draw_parralax.c \
 				./src/game/draw_player.c \
-				./src/game/draw_background.c \
 				./src/game/draw_all_game.c \
 				./src/game/animate_slime.c \
 				./src/game/animate_mushroom.c \
@@ -51,9 +55,18 @@ SRC 		=	./src/init/init_manager.c \
 				./src/game/map_setter.c \
 				./src/game/check_if_overlap.c \
 				./src/game/set_as_lose.c \
+				./src/game/change_world.c \
+				\
+				./src/game/draw_volcano_world.c \
+				./src/game/draw_forest_world.c \
 				\
 				./src/free/free_all.c \
-				./src/free/destroy_background.c \
+				\
+				./src/free/destroy_world.c \
+				./src/free/destroy_snow_world.c \
+				./src/free/destroy_volcano_world.c \
+				./src/free/destroy_forest_world.c \
+				\
 				./src/free/destroy_enemy_array.c \
 				./src/free/destroy_enemy_textures.c \
 				./src/free/destroy_manager.c \

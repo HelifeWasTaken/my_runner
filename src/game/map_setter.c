@@ -43,6 +43,7 @@ static void malloc_infinite_array(scene_t *scene)
 
 static void set_positions_sprites(scene_t *scene, size_t i, float *pos)
 {
+    int minimum_between_ids[4] = {0, 400, 200, 200};
     int id;
     void (*ptr_getter[4])(enemy_t **, int, size_t) =
         {0, &get_ninja, &get_mushroom, &get_slime};
@@ -58,7 +59,7 @@ static void set_positions_sprites(scene_t *scene, size_t i, float *pos)
     scene->enemy[i].info.pos.x = *pos;
     sfSprite_setPosition(scene->enemy[i].sprite,
         scene->enemy[i].info.pos);
-    *pos += rand() % 500 + 200;
+    *pos += rand() % 500 + minimum_between_ids[id];
 }
 
 void prepare_infinity_position(scene_t *scene)

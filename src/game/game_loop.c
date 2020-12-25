@@ -26,6 +26,7 @@ static void check_game_event(scene_t *scene, game_manager_t *manager)
 
 static void map_game_loop(scene_t *scene, game_manager_t *manager)
 {
+    scene->world.choice = change_world(scene->world.choice);
     if (!prepare_map_positions(scene, manager->map)) {
         manager->state = QUIT;
         my_dprintf(2, RED"my_runner: "
@@ -49,6 +50,7 @@ static void map_game_loop(scene_t *scene, game_manager_t *manager)
 
 static void infinity_game_loop(scene_t *scene, game_manager_t *manager)
 {
+    scene->world.choice = change_world(scene->world.choice);
     prepare_infinity_position(scene);
     manager->score = 0;
     sfMusic_play(scene->music.game);

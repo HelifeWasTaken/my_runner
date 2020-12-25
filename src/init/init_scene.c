@@ -51,6 +51,7 @@ bool load_end(scene_t *scene)
 bool init_scene(scene_t *scene)
 {
     scene->enemy = NULL;
+    scene->world.choice = -1;
     return (
             get_parralax_texture(scene) &&
             get_background(scene) &&
