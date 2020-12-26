@@ -11,7 +11,7 @@
 static void animate_enemy(scene_t *scene, game_manager_t *manager, size_t i)
 {
     void (*enemy_anim[4])(scene_t *, game_manager_t *, size_t i) =
-        {0, &animate_ninja, &animate_mushroom, &animate_slime};
+        {&animate_phantom, &animate_ninja, &animate_mushroom, &animate_slime};
 
     (*enemy_anim[scene->enemy[i].enemy_id])(scene, manager, i);
     sfSprite_setPosition(scene->enemy[i].sprite,
@@ -36,18 +36,6 @@ static void display_enemy(scene_t *scene, game_manager_t *manager)
     if (map_end && scene->player.info.state == ON_GROUND) {
         scene->player.info.state = WIN;
         scene->player.info.pos.y = PLAYER_GROUND_HEIGHT;
-    }
-}
-
-void draw_snow(scene_t *scene, game_manager_t *manager)
-{
-    sfTime time_struct = sfClock_getElapsedTime(manager->clock);
-    float seconds = sfTime_asSeconds(time_struct);
-
-    FOR_EACH_PARRALAX(i, NB_PARA_SNOW) {
-        sfSprite_setTextureRect(scene->world.snow.para[i].layer,
-            IRECT(seconds * (i * 30) + i * 30 + 5 + 120, 0, 512, 256));
-        DRAW_SPRITE(manager->window, scene->world.snow.para[i].layer);
     }
 }
 

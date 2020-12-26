@@ -43,19 +43,18 @@ static void malloc_infinite_array(scene_t *scene)
 
 static void set_positions_sprites(scene_t *scene, size_t i, float *pos)
 {
-    int minimum_between_ids[4] = {0, 400, 200, 200};
+    int minimum_between_ids[4] = {200, 400, 200, 200};
     int id;
     void (*ptr_getter[4])(enemy_t **, int, size_t) =
-        {0, &get_ninja, &get_mushroom, &get_slime};
+        {&get_phantom, &get_ninja, &get_mushroom, &get_slime};
+    sfVector2f scales[4] = {VECF(2, 2), VECF(2.75f, 2.75f),
+        VECF(3, 3), VECF(3, 3)};
 
+    srand(rand() % 1000);
     id = rand() % 4;
-    id = (id == 0) ? 2 : id;
     (*ptr_getter[id])(&scene->enemy, id, i);
     SET_TEXTURE(scene->enemy[i].sprite, scene->enemy_texture[id]);
-    if (id != NINJA)
-        sfSprite_setScale(scene->enemy[i].sprite, VECF(3, 3));
-    else
-        sfSprite_setScale(scene->enemy[i].sprite, VECF(2.75, 2.75));
+    sfSprite_setScale(scene->enemy[i].sprite, scales[id]);
     scene->enemy[i].info.pos.x = *pos;
     sfSprite_setPosition(scene->enemy[i].sprite,
         scene->enemy[i].info.pos);

@@ -11,7 +11,7 @@
     #define __RUNNER__ENEMY__H__
 
     enum {
-        FLY_ENEMY,
+        PHANTOM,
         NINJA,
         MUSHROOM,
         SLIME
@@ -32,7 +32,7 @@
 
     #define NB_ENEMY                4
     #define INF_ARR_ENEMY_SIZE      5
-    #define FLY_SPRITE_SHEET        "asset/vania/enemy/fly/sheet.png"
+    #define PHANTOM_SPRITE_SHEET    "asset/phantom.png"
     #define MUSHROOM_SPRITE_SHEET   "asset/vania/enemy/mushroom/sheet.png"
     #define NINJA_SPRITE_SHEET      "asset/ninja_sheet.png"
     #define SLIME_SPRITE_SHEET      "asset/vania/enemy/slime/sheet.png"
@@ -40,4 +40,5 @@
     #define GROUND_HEIGHT_MUSHROOM  677
     #define GROUND_HEIGHT_NINJA     650
     #define GROUND_HEIGHT_SLIME     691
+    #define GROUND_HEIGHT_PHANTOM   570
 #endif

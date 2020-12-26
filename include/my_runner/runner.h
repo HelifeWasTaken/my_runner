@@ -50,11 +50,36 @@
     //////////////////////////////// USAGE ////////////////////////////////
 
     #define SHOW_HELP \
-        my_printf(YELLOW"MY_RUNNER\n\n" \
-            BLUE"\tTo launch it use :" GREEN" ./my_runner [map]\n" \
-            BLUE"\tTo see this help use:" GREEN" ./my_runner -h\n" \
+        my_putstr(PURPLE"MY_RUNNER\n\n" \
+            BLUE"\tTo launch it use :"GREEN" ./my_runner [map] -> map mode" \
+            BLUE" or "GREEN"./my_runner -i -> infinite mode\n" \
+            BLUE"\tTo see this help use:"GREEN" ./my_runner -h\n" \
             PURPLE"\nDESCRIPTION:\n\n" \
-            CYAN"\t\tTODO\n\n" \
+            YELLOW"\tThis game is greatly inspired by the dinosaur game" \
+            " from chrome\n\n\tThe are two modes :\n\t\t" \
+            BLUE"Inifinite mode:"GREEN" Try to get as far" \
+            " as possible and get the highest score!\n\t\t" \
+            BLUE"Map mode: "GREEN"Try to end the map given in" \
+            " argument without dying\n\t\t" \
+            PURPLE"\nUSEFUL INFO:\n\n" \
+            BLUE"\tIn the menu:"GREEN"\n\t\tYou can still modify" \
+            " the map file\n\t\t" \
+            "in map mode by typing directly the name of the file\n\t\t" \
+            "a little text box" \
+            " will appear under the quit button.\n\t" \
+            YELLOW"-> This option is not aviable in infinity mode\n\n\t" \
+            BLUE"After finishing a game in inifnity mode:\n\t\t" \
+            GREEN"You will see the"\
+            " top 3 of the players.\n\t\tYou can enter your name by" \
+            " typing with the keyboard\n\t\t" \
+            "if you did not give a" \
+            " username your score won't be registered!\n\t" \
+            YELLOW"-> The scoreboard is only aviable in infinity mode\n" \
+            PURPLE"\nCOMMANDS :\n\n" \
+            BLUE"\tSpace bar: "GREEN"Jump "YELLOW"(in game)"BLUE" or" GREEN \
+            " Validate"YELLOW" (menu and end)\n" \
+            BLUE"\tEnter/Return: " \
+            GREEN"Validate"YELLOW"(menu and end)\n\n"BLUE \
             RED"Mattis DALLEAU\n"DEFAULT);
 
     #define SHOW_TOO_MUCH_ARGS \

@@ -52,8 +52,8 @@ static void infinity_game_loop(scene_t *scene, game_manager_t *manager)
     scene->world.choice = change_world(scene->world.choice);
     prepare_infinity_position(scene);
     manager->score = 0;
-    sfMusic_stop(scene->menu.music);
-    sfMusic_play(scene->music.game);
+    //sfMusic_stop(scene->menu.music);
+    //sfMusic_play(scene->music.game);
     while (sfRenderWindow_isOpen(manager->window) && manager->state == GAME) {
         check_game_event(scene, manager);
         draw_all_game(scene, manager);

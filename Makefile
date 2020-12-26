@@ -37,6 +37,8 @@ SRC 		=	./src/init/get_parralax_textures.c \
 				./src/init/load_end.c \
 				./src/init/enemy_getter/get_mushroom.c \
 				./src/init/enemy_getter/get_slime.c \
+				./src/init/enemy_getter/get_ninja.c \
+				./src/init/enemy_getter/get_phantom.c \
 				./src/init/get_empty_enemy.c \
 				\
 				./src/menu/menu_loop.c \
@@ -52,6 +54,7 @@ SRC 		=	./src/init/get_parralax_textures.c \
 				./src/game/animate_slime.c \
 				./src/game/animate_mushroom.c \
 				./src/game/animate_ninja.c \
+				./src/game/animate_phantom.c \
 				./src/game/handle_gravity.c \
 				./src/game/draw_score.c \
 				./src/game/map_setter.c \
@@ -61,6 +64,7 @@ SRC 		=	./src/init/get_parralax_textures.c \
 				\
 				./src/game/draw_volcano_world.c \
 				./src/game/draw_forest_world.c \
+				./src/game/draw_snow_world.c \
 				\
 				./config/parse_score.c \
 				./config/add_score_node.c \

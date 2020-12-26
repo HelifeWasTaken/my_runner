@@ -37,6 +37,8 @@
     void animate_slime(scene_t *scene, game_manager_t *manager, size_t i);
     void animate_mushroom(scene_t *scene, game_manager_t *manager, size_t i);
     void animate_ninja(scene_t *scene, game_manager_t *manager, size_t i);
+    void animate_phantom(scene_t *scene, game_manager_t *manager, size_t i);
+
     bool check_if_overlap(scene_t *scene, size_t i);
     void set_game_as_lose(scene_t *scene);
 
@@ -44,6 +46,7 @@
 
     void draw_volcano(scene_t *scene, game_manager_t *manager);
     void draw_forest(scene_t *scene, game_manager_t *manager);
+    void draw_snow(scene_t *scene, game_manager_t *manager);
     int8_t change_world(int8_t old_choice);
 
     //////////////////////////////// INIT ///////////////////////////////////
@@ -75,6 +78,7 @@
     void get_mushroom(enemy_t **new, int enemy_id, size_t i);
     void get_slime(enemy_t **new, int enemy_id, size_t i);
     void get_ninja(enemy_t **new, int enemy_id, size_t i);
+    void get_phantom(enemy_t **new, int enemy_id, size_t i);
 
     /////////////////////////////// FREE ////////////////////////////////////
 
