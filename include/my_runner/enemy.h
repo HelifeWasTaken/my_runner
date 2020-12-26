@@ -22,6 +22,11 @@
         ACTION,
     };
 
+    typedef struct enemy_info {
+        int id;
+        int index;
+    } enemy_info_t;
+
     typedef struct enemy_st {
         frame_t frame;
         sfSprite *sprite;

@@ -51,16 +51,17 @@
 
     //////////////////////////////// INIT ///////////////////////////////////
 
-    bool init_scene(scene_t *scene);
+    bool init_scene(scene_t *scene, game_manager_t *manager);
     bool load_music(scene_t *scene);
     bool get_player(scene_t *scene);
     void reset_player(scene_t *scene);
-    bool map_loader(scene_t *scene, char *filepath);
+    bool map_loader(scene_t *scene, char *filepath, game_manager_t *manager);
     bool load_enemy_textures(scene_t *scene);
     bool load_text_textures(scene_t *scene);
     bool load_end(scene_t *scene);
-    bool load_menu(scene_t *scene);
+    bool load_menu(scene_t *scene, game_manager_t *manager);
     bool init_manager(game_manager_t *manager, char *file);
+    void set_menu(scene_t *scene, game_manager_t *manager);
 
     bool get_background(scene_t *scene);
     bool get_volcano_background(scene_t *scene);
@@ -73,16 +74,21 @@
     ////////////////////////// GETTER SETTER  /////////////////////////////
 
     enemy_t get_empty_enemy(u_int8_t id);
-    void prepare_infinity_position(scene_t *scene);
-    bool prepare_map_positions(scene_t *scene, char *file);
-    void get_mushroom(enemy_t **new, int enemy_id, size_t i);
-    void get_slime(enemy_t **new, int enemy_id, size_t i);
-    void get_ninja(enemy_t **new, int enemy_id, size_t i);
-    void get_phantom(enemy_t **new, int enemy_id, size_t i);
+    void prepare_infinity_position(scene_t *scene, game_manager_t *manager);
+    bool prepare_map_positions(scene_t *scene, char *file,
+        game_manager_t *manager);
+    void get_mushroom(enemy_t **new,
+        int enemy_id, size_t i, game_manager_t *manager);
+    void get_slime(enemy_t **new,
+        int enemy_id, size_t i, game_manager_t *manager);
+    void get_ninja(enemy_t **new,
+        int enemy_id, size_t i, game_manager_t *manager);
+    void get_phantom(enemy_t **new,
+        int enemy_id, size_t i, game_manager_t *manager);
 
     /////////////////////////////// FREE ////////////////////////////////////
 
-    void free_all(scene_t *scene, game_manager_t *manager);
+    void free_all(scene_t *scene, game_manager_t *manager, bool free_manager);
 
     /////////////////////////////// MENU ////////////////////////////////////
 

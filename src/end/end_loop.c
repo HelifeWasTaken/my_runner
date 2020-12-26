@@ -41,14 +41,15 @@ static void preset_end_v2(game_manager_t *manager, scene_t *scene)
 {
     sfText_setPosition(scene->end.score_board,
         (manager->infinty_enabled) ?
-            VECF(500, WIN_H - 200) : VECF(150, WIN_H - 100));
+            VECF(WIN_W / 2 - 200, WIN_H - 200) : VECF(50, WIN_H - 100));
     sfText_setString(scene->end.score_board, scene->end.top_str);
-    sfText_setPosition(scene->text.text_score, VECF(530, WIN_H + 300));
+    sfText_setPosition(scene->text.text_score,
+        VECF(WIN_W / 2 - 105, WIN_H + 300));
     sfText_setPosition(scene->end.username_text, VECF(100, 530));
     sfSprite_setPosition(scene->menu.sprite_b2,
-            VECF(WIN_W - 770, WIN_H - 400 + 300 + 300 - 20));
+            VECF(WIN_W / 2 - 105, WIN_H - 400 + 300 + 300 - 20));
     sfSprite_setPosition(scene->player.sprite,
-            VECF(WIN_W - 820, WIN_H - 300 + 300 + 213 - 20));
+            VECF(WIN_W / 2 - 205, WIN_H - 300 + 300 + 213 - 20));
     sfMusic_play(scene->end.music);
 }
 
@@ -60,7 +61,7 @@ static void preset_end(game_manager_t *manager, scene_t *scene)
         scene->end.top_str = get_leaderboard_in_str();
         sfText_setString(scene->end.username_text, "Username: ");
     } else
-        scene->end.top_str = "Scoreboard avaiable only in infinite mode";
+        scene->end.top_str = "Scoreboard aviable only\nin infinite mode";
     if (scene->end.username) {
         scene->end.username = NULL;
         free(scene->end.username);
@@ -79,7 +80,8 @@ void end_loop(scene_t *scene, game_manager_t *manager)
     if (manager->infinty_enabled)
         append_score_to_file(manager->score, scene->end.username);
     reset_player(scene);
-    sfSprite_setPosition(scene->menu.sprite_b2, VECF(WIN_W - 760, WIN_H - 300));
+    sfSprite_setPosition(scene->menu.sprite_b2,
+        VECF(WIN_W / 2 - 105, WIN_H - 300));
     sfText_setPosition(scene->text.text_score, VECF(25, 25));
     sfMusic_stop(scene->end.music);
 }

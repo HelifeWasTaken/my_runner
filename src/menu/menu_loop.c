@@ -8,13 +8,38 @@
 #include <my_runner/runner.h>
 #include <my_runner/scene.h>
 
+void resize_window(scene_t *scene, game_manager_t *manager)
+{
+    sfVector2u mode[3] = {
+        VECU(800, WIN_H),
+        VECU(1000, WIN_H),
+        VECU(1300, WIN_H)};
+
+    manager->type_window++;
+    if (manager->type_window == 3)
+        manager->type_window = 0;
+    manager->screen_size = mode[manager->type_window];
+    free_all(scene, manager, false);
+    sfRenderWindow_close(manager->window);
+    manager->window = CREATE_WINDOW(WIN_MODE_2, "my_runner");
+    SET_FRAME_LIMIT(manager->window, 60);
+    init_scene(scene, manager);
+    sfMusic_play(scene->menu.music);
+}
+
 static void check_key_press_menu(scene_t *scene, game_manager_t *manager)
 {
-    if (sfKeyboard_isKeyPressed(sfKeyUp) || sfKeyboard_isKeyPressed(sfKeyDown))
+    if (sfKeyboard_isKeyPressed(sfKeyUp) ||
+        sfKeyboard_isKeyPressed(sfKeyDown)) {
         scene->menu.choice = !scene->menu.choice;
-    else if (sfKeyboard_isKeyPressed(sfKeyEnter) ||
-        sfKeyboard_isKeyPressed(sfKeySpace))
+        return;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyEnter) ||
+        sfKeyboard_isKeyPressed(sfKeySpace)) {
         manager->state = (scene->menu.choice == GAME_CHOICE) ? GAME : QUIT;
+        return;
+    } else if (sfKeyboard_isKeyPressed(sfKeyF1))
+        resize_window(scene, manager);
     else
         manager->map = handle_keyboard(manager->map);
 }

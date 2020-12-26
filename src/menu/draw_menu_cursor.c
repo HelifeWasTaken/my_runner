@@ -16,10 +16,10 @@ void draw_menu_cursor(scene_t *scene, game_manager_t *manager)
 
     if (scene->menu.choice == GAME_CHOICE) {
         sfSprite_setPosition(scene->player.sprite,
-            VECF(WIN_W - 850, WIN_H - 400));
+            VECF(WIN_W / 2 - 170, WIN_H - 400));
     } else {
         sfSprite_setPosition(scene->player.sprite,
-            VECF(WIN_W - 850, WIN_H - 300));
+            VECF(WIN_W / 2 - 150, WIN_H - 300));
     }
     animate_sprite(player_idle_frames, scene->player.sprite,
         &scene->player.frame, manager->clock);

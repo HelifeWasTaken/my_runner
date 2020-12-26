@@ -28,7 +28,7 @@ static void map_game_loop(scene_t *scene, game_manager_t *manager)
 {
     scene->menu.trigger_error = false;
     scene->world.choice = change_world(scene->world.choice);
-    if (!prepare_map_positions(scene, manager->map)) {
+    if (!prepare_map_positions(scene, manager->map, manager)) {
         scene->menu.trigger_error = true;
         manager->state = MENU;
         return;
@@ -50,7 +50,7 @@ static void map_game_loop(scene_t *scene, game_manager_t *manager)
 static void infinity_game_loop(scene_t *scene, game_manager_t *manager)
 {
     scene->world.choice = change_world(scene->world.choice);
-    prepare_infinity_position(scene);
+    prepare_infinity_position(scene, manager);
     manager->score = 0;
     sfMusic_stop(scene->menu.music);
     sfMusic_play(scene->music.game);

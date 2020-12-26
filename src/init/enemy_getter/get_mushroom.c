@@ -7,7 +7,8 @@
 
 #include <my_runner/scene.h>
 
-void get_mushroom(enemy_t **new, int enemy_id, size_t i)
+void get_mushroom(enemy_t **new, int enemy_id,
+    size_t i, game_manager_t *manager)
 {
     (*new)[i].frame = FRAME_SET(0, 7, MUSHROOM_TIME_SHIFT);
     (*new)[i].enemy_id = enemy_id;

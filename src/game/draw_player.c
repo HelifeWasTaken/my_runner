@@ -55,7 +55,7 @@ static void animate_win(scene_t *scene, game_manager_t *manager)
         sfRenderWindow_clear(manager->window, sfBlack);
         scene->world.choice = change_world(scene->world.choice);
         reset_player(scene);
-        prepare_infinity_position(scene);
+        prepare_infinity_position(scene, manager);
     } else {
         manager->state = END;
     }

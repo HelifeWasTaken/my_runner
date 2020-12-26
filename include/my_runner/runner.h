@@ -23,6 +23,12 @@
         QUIT_CHOICE
     };
 
+    enum {
+        SMALL,
+        MEDIUM,
+        LARGE
+    };
+
     typedef struct game_manager {
         sfRenderWindow *window;
         sfClock *clock;
@@ -31,14 +37,20 @@
         u_int8_t state;
         char *map;
         bool infinty_enabled;
+        sfVector2u screen_size;
+        int8_t type_window;
     } game_manager_t;
 
     ////////////////////////// WINDOW INFO //////////////////////////////////
 
     #define WINDOW_NAME             "my_runner"
-    #define WIN_W                   1300
-    #define WIN_H                   768
-    #define WIN_MODE                (sfVideoMode) {WIN_W, WIN_H, 32}
+    #define WIN_W                   manager->screen_size.x
+    #define WIN_H                   manager->screen_size.y
+    #define WIN_MODE                \
+        (sfVideoMode){manager.screen_size.x, manager.screen_size.y, 32}
+    #define WIN_MODE_2              \
+        (sfVideoMode){manager->screen_size.x, manager->screen_size.y, 32}
+
 
     /////////////////////////////// MISC ///////////////////////////////////
 
@@ -66,7 +78,8 @@
             " the map file\n\t\t" \
             "in map mode by typing directly the name of the file\n\t\t" \
             "a little text box" \
-            " will appear under the quit button.\n\t" \
+            " will appear under the quit button.\n\t\t" \
+            "You can press F1 key to resize the window too\n\t" \
             YELLOW"-> This option is not aviable in infinity mode\n\n\t" \
             BLUE"After finishing a game in inifnity mode:\n\t\t" \
             GREEN"You will see the"\
@@ -75,7 +88,7 @@
             "if you did not give a" \
             " username your score won't be registered!\n\t" \
             YELLOW"-> The scoreboard is only aviable in infinity mode\n" \
-            PURPLE"\nCOMMANDS :\n\n" \
+            PURPLE"\nCOMMANDS:\n\n" \
             BLUE"\tSpace bar: "GREEN"Jump "YELLOW"(in game)"BLUE" or" GREEN \
             " Validate"YELLOW" (menu and end)\n" \
             BLUE"\tEnter/Return: " \

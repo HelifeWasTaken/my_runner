@@ -8,11 +8,11 @@
 #include <my_runner/scene.h>
 #include <my_runner/free.h>
 
-bool prepare_map_positions(scene_t *scene, char *file)
+bool prepare_map_positions(scene_t *scene, char *file, game_manager_t *manager)
 {
     if (scene->enemy)
         destroy_enemy_array(scene);
-    if (!map_loader(scene, file)) {
+    if (!map_loader(scene, file, manager)) {
         scene->enemy = NULL;
         return (false);
     }
@@ -41,18 +41,19 @@ static void malloc_infinite_array(scene_t *scene)
     scene->enemy[INF_ARR_ENEMY_SIZE] = get_empty_enemy(-2);
 }
 
-static void set_positions_sprites(scene_t *scene, size_t i, float *pos)
+static void set_positions_sprites(scene_t *scene, size_t i, float *pos,
+    game_manager_t *manager)
 {
     int minimum_between_ids[4] = {200, 400, 200, 200};
     int id;
-    void (*ptr_getter[4])(enemy_t **, int, size_t) =
+    void (*ptr_getter[4])(enemy_t **, int, size_t, game_manager_t *) =
         {&get_phantom, &get_ninja, &get_mushroom, &get_slime};
     sfVector2f scales[4] = {VECF(2, 2), VECF(2.75f, 2.75f),
         VECF(3, 3), VECF(3, 3)};
 
     srand(rand() % 1000);
     id = rand() % 4;
-    (*ptr_getter[id])(&scene->enemy, id, i);
+    (*ptr_getter[id])(&scene->enemy, id, i, manager);
     SET_TEXTURE(scene->enemy[i].sprite, scene->enemy_texture[id]);
     sfSprite_setScale(scene->enemy[i].sprite, scales[id]);
     scene->enemy[i].info.pos.x = *pos;
@@ -61,7 +62,7 @@ static void set_positions_sprites(scene_t *scene, size_t i, float *pos)
     *pos += rand() % 500 + minimum_between_ids[id];
 }
 
-void prepare_infinity_position(scene_t *scene)
+void prepare_infinity_position(scene_t *scene, game_manager_t *manager)
 {
     float pos = WIN_W + 100;
 
@@ -72,6 +73,6 @@ void prepare_infinity_position(scene_t *scene)
             scene->enemy[i].enemy_id = -1;
             continue;
         }
-        set_positions_sprites(scene, i, &pos);
+        set_positions_sprites(scene, i, &pos, manager);
     }
 }

@@ -9,13 +9,11 @@
 
 bool init_manager(game_manager_t *manager, char *file)
 {
-    manager->window = CREATE_WINDOW(WIN_MODE, WINDOW_NAME);
-    if (!manager->window)
-        return (false);
-    SET_FRAME_LIMIT(manager->window, 60);
+    manager->screen_size = VECU(1300, 768);
     manager->clock = sfClock_create();
     manager->score = 0;
     manager->state = MENU;
     manager->map = my_strdup(file);
+    manager->type_window = LARGE;
     return (true);
 }

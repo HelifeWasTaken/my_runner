@@ -10,7 +10,8 @@
 
 static void display_string_map_mode(scene_t *scene, game_manager_t *manager)
 {
-    sfText_setPosition(scene->menu.filepath, VECF(WIN_W - 790, WIN_H - 200));
+    sfText_setPosition(scene->menu.filepath,
+        VECF(WIN_W / 2 - 170, WIN_H - 200));
     if (scene->menu.trigger_error)
         DRAW_SPRITE(manager->window, scene->menu.error_sprite);
     if (manager->map)
@@ -33,7 +34,7 @@ void animate_menu(scene_t *scene,  game_manager_t *manager)
         display_string_map_mode(scene, manager);
     else {
         sfText_setPosition(scene->menu.filepath,
-            VECF(WIN_W - 820, WIN_H - 200));
+            VECF(WIN_W / 2 - 180, WIN_H - 200));
         display_info(scene->menu.filepath, manager->window,
             my_strdup("Infinity mode: "), my_strdup("on"));
     }

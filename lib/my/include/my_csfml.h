@@ -41,6 +41,7 @@
     #define FRECT(l, t, w, h) (sfFloatRect){l, t, w, h}
     #define VECF(x, y) (sfVector2f){x, y}
     #define VECI(x, y) (sfVector2i){x, y}
+    #define VECU(x, y) (sfVector2u){x, y}
 
     enum {
         INIT,

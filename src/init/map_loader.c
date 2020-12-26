@@ -7,6 +7,7 @@
 
 #include <my_runner/scene.h>
 #include <my_runner/free.h>
+#include <my_runner/enemy.h>
 #include <my_str.h>
 #include <stdio.h>
 
@@ -24,21 +25,22 @@ static ssize_t get_enemy_type(char enemy)
     return (-2);
 }
 
-static void fill_enemy_info(enemy_t **new, scene_t *scene, int enemy_id,
-        size_t i)
+static void fill_enemy_info(enemy_t **new, scene_t *scene, enemy_info_t info,
+    game_manager_t *manager)
 {
-    void (*getter_ptr[4])(enemy_t **new, int enemy_id, size_t i) =
-    {&get_phantom, &get_ninja, &get_mushroom, &get_slime};
+    void (*getter_ptr[4])(enemy_t **, int, size_t, game_manager_t *) =
+        {&get_phantom, &get_ninja, &get_mushroom, &get_slime};
     sfVector2f scales[4] = {VECF(2, 2), VECF(2.75f, 2.75f),
         VECF(3, 3), VECF(3, 3)};
 
-    (*getter_ptr[enemy_id])(new, enemy_id, i);
-    (*new)[i].sprite = sfSprite_create();
-    SET_TEXTURE((*new)[i].sprite, scene->enemy_texture[enemy_id]);
-    sfSprite_setScale((*new)[i].sprite, scales[enemy_id]);
+    (*getter_ptr[info.id])(new, info.id, info.index, manager);
+    (*new)[info.index].sprite = sfSprite_create();
+    SET_TEXTURE((*new)[info.index].sprite, scene->enemy_texture[info.id]);
+    sfSprite_setScale((*new)[info.index].sprite, scales[info.id]);
 }
 
-static bool set_enemy_in_array(scene_t *scene, char *buff)
+static bool set_enemy_in_array(scene_t *scene, char *buff,
+    game_manager_t *manager)
 {
     size_t i;
     int enemy_id = 0;
@@ -55,7 +57,8 @@ static bool set_enemy_in_array(scene_t *scene, char *buff)
             SHOW_ERROR_LOG_UNSUPORTED_CHAR
             return (false);
         }
-        fill_enemy_info(&scene->enemy, scene, enemy_id, i);
+        fill_enemy_info(&scene->enemy, scene, (enemy_info_t){enemy_id, i},
+            manager);
     }
     scene->enemy[i] = get_empty_enemy(-2);
     return (true);
@@ -73,7 +76,7 @@ static void free_map(scene_t *scene, char *buffer, FILE *file)
         fclose(file);
 }
 
-bool map_loader(scene_t *scene, char *filepath)
+bool map_loader(scene_t *scene, char *filepath, game_manager_t *manager)
 {
     char *buffer = NULL;
     FILE *map_file = fopen(filepath, "r");
@@ -87,7 +90,7 @@ bool map_loader(scene_t *scene, char *filepath)
         return (false);
     }
     if (getline(&buffer, &buffer_index, map_file) == -1 || buffer == NULL ||
-            !set_enemy_in_array(scene, buffer)) {
+            !set_enemy_in_array(scene, buffer, manager)) {
         free_map(scene, buffer, map_file);
         return (false);
     }
