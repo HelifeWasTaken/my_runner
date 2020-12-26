@@ -21,7 +21,7 @@ void swap_info(unsigned long long *a, unsigned long long *b, void **c, void **d)
 
 void process_swap_bubble(score_t *ptr, bool *swapped)
 {
-    if (ptr->score > ptr->next->score) {
+    if (ptr->score < ptr->next->score) {
         swap_info(&ptr->score,
                 &ptr->next->score,
                 (void **)&ptr->username,

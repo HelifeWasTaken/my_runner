@@ -68,6 +68,14 @@
             CYAN"You can try :" GREEN"\n\t./my_runner -h to" \
             " show the help\n"DEFAULT);
 
+    #define SHOW_ERROR_LOG_UNSUPORTED_CHAR \
+        my_dprintf(2, RED"my_runner: "YELLOW"The map is not formatted well : " \
+            "[%c|0x%x] is not supported\n"DEFAULT, buff[i], buff[i]);
+
+    #define SHOW_ERROR_LOG_OPEN_FILE_FAIL(file) \
+        my_dprintf(2, RED"my_runner: " \
+            YELLOW"Could not open file : %s\n"DEFAULT, file)
+
     static inline int usage(int ac, char **av)
     {
         if (ac > 2 || ac == 1) {

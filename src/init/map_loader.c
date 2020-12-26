@@ -53,8 +53,7 @@ static bool set_enemy_in_array(scene_t *scene, char *buff)
         enemy_id = get_enemy_type(buff[i]);
         if (enemy_id == -2) {
             scene->enemy[i] = get_empty_enemy(-2);
-            my_dprintf(2, RED"my_runner:"YELLOW" The map is not formated well :"
-                    " [%c|0x%x] is not supported\n"DEFAULT, buff[i], buff[i]);
+            SHOW_ERROR_LOG_UNSUPORTED_CHAR
             return (false);
         }
         fill_enemy_info(&scene->enemy, scene, enemy_id, i);
@@ -85,6 +84,7 @@ bool map_loader(scene_t *scene, char *filepath)
         destroy_enemy_array(scene);
     if (map_file == NULL) {
         free_map(scene, buffer, map_file);
+        SHOW_ERROR_LOG_OPEN_FILE_FAIL(filepath);
         return (false);
     }
     if (getline(&buffer, &buffer_index, map_file) == -1 || buffer == NULL ||

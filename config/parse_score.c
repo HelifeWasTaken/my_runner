@@ -26,8 +26,10 @@ static score_t *get_score_board(char *filename)
     char *buffer = NULL;
     FILE *file = fopen(filename, "ra");
 
-    if (file == NULL)
+    if (file == NULL) {
+        SHOW_ERROR_LOG_OPEN_FILE_FAIL("./config/score.config");
         return (NULL);
+    }
     while (getline(&buffer, &buffer_index, file) > 0) {
         if (add_score_node(&score, buffer) == false) {
             free_score_board(score);
@@ -45,7 +47,7 @@ static char *concat_score_board_top(score_t *head)
     int i = 0;
 
     for (; i < 3 && head; i++) {
-        buf = concat_string(buf, my_itoa(i, "0123456789"));
+        buf = concat_string(buf, my_itoa(i + 1, "0123456789"));
         buf = concat_string(buf, ": ");
         buf = concat_string(buf, concat_string(head->username, " - "));
         buf = concat_string(buf, my_itoa(head->score, "0123456789"));
@@ -65,7 +67,11 @@ void append_score_to_file(unsigned long long score, char *username)
     FILE *score_file = fopen("./config/score.config", "a");
     char *buf_1 = NULL;
 
-    if (score_file == NULL || username == NULL)
+    if (score_file == NULL) {
+        SHOW_ERROR_LOG_OPEN_FILE_FAIL("./config/score.config");
+        return;
+    }
+    if (username == NULL)
         return;
     buf_1 = my_itoa(score, "0213456789");
     fwrite(username, sizeof(char), my_strlen(username), score_file);
@@ -74,13 +80,16 @@ void append_score_to_file(unsigned long long score, char *username)
     fwrite("\n", sizeof(char), 1, score_file);
     free(buf_1);
     free(username);
+    fclose(score_file);
 }
 
 char *get_leaderboard_in_str(void)
 {
     score_t *head = get_score_board("./config/score.config");
-    char *buf = concat_score_board_top(head);
+    char *buf = NULL;
 
+    bubble_sort_score_board(&head);
+    buf = concat_score_board_top(head);
     free_score_board(head);
     return (buf);
 }
