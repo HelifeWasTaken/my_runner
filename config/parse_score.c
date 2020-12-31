@@ -88,7 +88,8 @@ char *get_leaderboard_in_str(void)
     score_t *head = get_score_board("./config/score.config");
     char *buf = NULL;
 
-    bubble_sort_score_board(&head);
+    if (head)
+        bubble_sort_score_board(&head);
     buf = concat_score_board_top(head);
     free_score_board(head);
     return (buf);
