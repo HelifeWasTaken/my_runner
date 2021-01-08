@@ -14,4 +14,3 @@ enemy_t get_empty_enemy(u_int8_t id)
 
     return ((enemy_t){empty_frame, NULL, id, IDLE, empty_entity});
 }
-

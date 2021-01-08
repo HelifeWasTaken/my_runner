@@ -12,8 +12,7 @@ static void check_key_press_end(game_manager_t *manager, scene_t *scene)
 {
     char *tmp = NULL;
 
-    if (sfKeyboard_isKeyPressed(sfKeyEnter) ||
-            sfKeyboard_isKeyPressed(sfKeySpace))
+    if (sfKeyboard_isKeyPressed(sfKeyEnter))
         manager->state = MENU;
     else if (manager->infinty_enabled) {
         scene->end.username = handle_keyboard(scene->end.username);

@@ -7,10 +7,20 @@
 
 #include <my_runner/free.h>
 
+static void free_player_textures(scene_t *scene)
+{
+    for (int i = 0; i < NB_PLAYER_SPRITES; i++) {
+        if (scene->player.texture[i] == NULL)
+            sfTexture_destroy(scene->player.texture[i]);
+    }
+}
+
 void destroy_player(scene_t *scene)
 {
-    if (scene->player.texture)
-        sfTexture_destroy(scene->player.texture);
+    if (scene->player.texture) {
+        free_player_textures(scene);
+        free(scene->player.texture);
+    }
     if (scene->player.sprite)
         sfSprite_destroy(scene->player.sprite);
 }

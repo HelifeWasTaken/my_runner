@@ -77,6 +77,8 @@ char *handle_keyboard(char *buf)
         remove_char(&buf);
         return (buf);
     }
+    if (my_strlen(buf) >= 30)
+        return (buf);
     for (int i = 0; i < 85; i++) {
         if (check_if_add(&buf, i))
             break;

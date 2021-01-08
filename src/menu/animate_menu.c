@@ -19,7 +19,7 @@ static void display_string_map_mode(scene_t *scene, game_manager_t *manager)
             my_strdup("file: "), my_strdup(manager->map));
     else
         display_info(scene->menu.filepath, manager->window,
-            my_strdup("file: "), my_strdup(" "));
+            my_strdup("file: "), my_strdup("_"));
 }
 
 void animate_menu(scene_t *scene,  game_manager_t *manager)

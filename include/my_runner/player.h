@@ -13,10 +13,11 @@
     #include <my_runner/frames.h>
 
     typedef struct player {
-        sfTexture *texture;
+        sfTexture **texture;
         frame_t frame;
         sfSprite *sprite;
         entity_t info;
+        u_int8_t player_type;
     } player_t;
 
     #define PLAYER_GROUND_HEIGHT    664

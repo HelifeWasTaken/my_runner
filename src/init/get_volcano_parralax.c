@@ -30,4 +30,3 @@ bool get_volcano_parralax(scene_t *scene)
     }
     return (true);
 }
-

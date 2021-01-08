@@ -16,7 +16,6 @@
         size_t fd_putchar(int const fd, const char c);
         size_t my_putstr(char const *str);
         size_t fd_putstr(int const fd, char const *str);
-
         size_t my_putnbr(long long nb);
         size_t fd_putnbr(int const fd, long long nb);
         size_t my_putnbr_unsigned(long long nb);
@@ -25,7 +24,6 @@
                 bool const uppercase);
         size_t fd_putnbr_base(int const fd, long long nb,
                 int const base, bool const uppercase);
-
         size_t my_putnbr_base_unsigned(unsigned long long nb, unsigned int base,
                 bool uppercase);
         size_t fd_putnbr_base_unsigned(int fd, unsigned long long nb,

@@ -13,9 +13,16 @@
 
     ///////////////////////// PLAYER ///////////////////////////
 
-    #define PLAYER_SPRITE           "asset/vania/herochar/sheet.png"
-    #define TIME_SHIFT_PLAYER_IDLE  0.07f
-    #define TIME_SHIFT_PLAYER_JUMP  0.15f
+    #define NB_PLAYER_SPRITES           5
+
+    #define PLAYER_SPRITE_1             "asset/vania/herochar/sheet.png"
+    #define PLAYER_SPRITE_2             "asset/vania/herochar/sheet2.png"
+    #define PLAYER_SPRITE_3             "asset/vania/herochar/sheet3.png"
+    #define PLAYER_SPRITE_4             "asset/vania/herochar/sheet4.png"
+    #define PLAYER_SPRITE_5             "asset/vania/herochar/sheet5.png"
+
+    #define TIME_SHIFT_PLAYER_IDLE      0.07f
+    #define TIME_SHIFT_PLAYER_JUMP      0.15f
 
     /////////////////////// BACKGROUND /////////////////////////
 

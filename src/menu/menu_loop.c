@@ -8,7 +8,17 @@
 #include <my_runner/runner.h>
 #include <my_runner/scene.h>
 
-void resize_window(scene_t *scene, game_manager_t *manager)
+static void change_player(scene_t *scene)
+{
+    if (scene->player.player_type == NB_PLAYER_SPRITES - 1)
+        scene->player.player_type = 0;
+    else
+        scene->player.player_type++;
+    SET_TEXTURE(scene->player.sprite,
+        scene->player.texture[scene->player.player_type]);
+}
+
+static void resize_window(scene_t *scene, game_manager_t *manager)
 {
     sfVector2u mode[3] = {
         VECU(800, WIN_H),
@@ -34,14 +44,19 @@ static void check_key_press_menu(scene_t *scene, game_manager_t *manager)
         scene->menu.choice = !scene->menu.choice;
         return;
     }
-    if (sfKeyboard_isKeyPressed(sfKeyEnter) ||
-        sfKeyboard_isKeyPressed(sfKeySpace)) {
+    if (sfKeyboard_isKeyPressed(sfKeyEnter)) {
         manager->state = (scene->menu.choice == GAME_CHOICE) ? GAME : QUIT;
         return;
-    } else if (sfKeyboard_isKeyPressed(sfKeyF1))
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyF1)) {
         resize_window(scene, manager);
-    else
-        manager->map = handle_keyboard(manager->map);
+        return;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyF2)) {
+        change_player(scene);
+        return;
+    }
+    manager->map = handle_keyboard(manager->map);
 }
 
 static void check_menu_event(scene_t *scene, game_manager_t *manager)

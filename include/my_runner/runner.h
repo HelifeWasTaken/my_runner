@@ -79,7 +79,8 @@
             "in map mode by typing directly the name of the file\n\t\t" \
             "a little text box" \
             " will appear under the quit button.\n\t\t" \
-            "You can press F1 key to resize the window too\n\t" \
+            "You can press F1 key to resize the window\n\t" \
+            "and F2 key to modify your player !!!\n\t" \
             YELLOW"-> This option is not aviable in infinity mode\n\n\t" \
             BLUE"After finishing a game in inifnity mode:\n\t\t" \
             GREEN"You will see the"\
@@ -89,8 +90,7 @@
             " username your score won't be registered!\n\t" \
             YELLOW"-> The scoreboard is only aviable in infinity mode\n" \
             PURPLE"\nCOMMANDS:\n\n" \
-            BLUE"\tSpace bar: "GREEN"Jump "YELLOW"(in game)"BLUE" or" GREEN \
-            " Validate"YELLOW" (menu and end)\n" \
+            BLUE"\tSpace bar: "GREEN"Jump "YELLOW"\n" \
             BLUE"\tEnter/Return: " \
             GREEN"Validate"YELLOW"(menu and end)\n\n"BLUE \
             RED"Mattis DALLEAU\n"DEFAULT);

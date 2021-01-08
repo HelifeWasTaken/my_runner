@@ -18,12 +18,20 @@ void reset_player(scene_t *scene)
 
 bool get_player(scene_t *scene)
 {
-    scene->player.texture = CREATE_TEXTURE(PLAYER_SPRITE);
-    if (scene->player.texture == NULL)
-        return (false);
+    scene->player.texture = my_calloc(sizeof(sfTexture *), NB_PLAYER_SPRITES);
+    scene->player.texture[0] = CREATE_TEXTURE(PLAYER_SPRITE_1);
+    scene->player.texture[1] = CREATE_TEXTURE(PLAYER_SPRITE_2);
+    scene->player.texture[2] = CREATE_TEXTURE(PLAYER_SPRITE_3);
+    scene->player.texture[3] = CREATE_TEXTURE(PLAYER_SPRITE_4);
+    scene->player.texture[4] = CREATE_TEXTURE(PLAYER_SPRITE_5);
+    for (int i = 0; i < NB_PLAYER_SPRITES; i++) {
+        if (scene->player.texture[i] == NULL)
+            return (false);
+    }
     scene->player.sprite = sfSprite_create();
-    SET_TEXTURE(scene->player.sprite, scene->player.texture);
+    SET_TEXTURE(scene->player.sprite, scene->player.texture[0]);
     sfSprite_setScale(scene->player.sprite, VECF(4, 4));
+    scene->player.player_type = 1;
     reset_player(scene);
     return (true);
 }

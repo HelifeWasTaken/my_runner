@@ -38,4 +38,3 @@ void destroy_volcano_world(scene_t *scene)
     destroy_volcano_world_background(scene);
     destroy_volcano_world_parralax(scene);
 }
-
